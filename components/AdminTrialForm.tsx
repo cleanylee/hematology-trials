@@ -16,7 +16,7 @@ export function AdminTrialForm({ initialData, isEditing = false }: AdminTrialFor
     const [error, setError] = useState<string | null>(null);
     const [formData, setFormData] = useState<Partial<Trial>>(
         initialData || {
-            diseaseCategory: "AML",
+            diseaseCategory: "AML-MDS",
             status: "Recruiting",
             expectedEnrollment: 0,
             alreadyEnrolled: 0,
@@ -53,7 +53,18 @@ export function AdminTrialForm({ initialData, isEditing = false }: AdminTrialFor
         }
     };
 
-    const categories: DiseaseCategory[] = ["AML", "ALL", "MM", "Lymphoma", "PNH", "MPN", "GVHD", "Other"];
+    const categories: DiseaseCategory[] = [
+        "AML-MDS",
+        "ALL",
+        "CLL",
+        "CML",
+        "MM",
+        "Lymphoma",
+        "MPN",
+        "PNH",
+        "GVHD",
+        "Others"
+    ];
     const statuses: TrialStatus[] = [
         "Pending Approval",
         "Recruiting",

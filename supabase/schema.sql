@@ -5,14 +5,16 @@ drop type if exists public.trial_status;
 
 -- Create an Enum for Disease Category
 create type public.disease_category as enum (
-  'AML',
+  'AML-MDS',
   'ALL',
+  'CLL',
+  'CML',
   'MM',
   'Lymphoma',
   'PNH',
   'MPN',
   'GVHD',
-  'Other'
+  'Others'
 );
 
 -- Create an Enum for Trial Status

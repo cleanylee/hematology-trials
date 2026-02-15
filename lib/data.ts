@@ -1,12 +1,14 @@
 export type DiseaseCategory =
-    | "AML"
+    | "AML-MDS"
     | "ALL"
+    | "CLL"
+    | "CML"
     | "MM"
     | "Lymphoma"
-    | "PNH"
     | "MPN"
+    | "PNH"
     | "GVHD"
-    | "Other";
+    | "Others";
 
 export type TrialStatus =
     | "Pending Approval"
