@@ -105,7 +105,7 @@ export interface Database {
             | "Pending Approval"
             | "Recruiting"
             | "On Hold"
-            | "Recruiting Completed"
+            | "Active, not recruiting"
             | "Trial Completed"
             | "Terminated"
         }

@@ -14,7 +14,7 @@ export type TrialStatus =
     | "Pending Approval"
     | "Recruiting"
     | "On Hold"
-    | "Recruiting Completed"
+    | "Active, not recruiting"
     | "Trial Completed"
     | "Terminated";
 

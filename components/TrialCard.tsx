@@ -13,7 +13,7 @@ export function TrialCard({ trial }: TrialCardProps) {
         switch (status) {
             case 'Recruiting': return 'bg-green-100 text-green-800 hover:bg-green-100/80';
             case 'Pending Approval': return 'bg-yellow-100 text-yellow-800 hover:bg-yellow-100/80';
-            case 'Recruiting Completed': return 'bg-blue-100 text-blue-800 hover:bg-blue-100/80';
+            case 'Active, not recruiting': return 'bg-blue-100 text-blue-800 hover:bg-blue-100/80';
             case 'Trial Completed': return 'bg-gray-100 text-gray-800 hover:bg-gray-100/80';
             case 'Terminated': return 'bg-red-100 text-red-800 hover:bg-red-100/80';
             case 'On Hold': return 'bg-orange-100 text-orange-800 hover:bg-orange-100/80';

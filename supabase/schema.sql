@@ -22,7 +22,7 @@ create type public.trial_status as enum (
   'Pending Approval',
   'Recruiting',
   'On Hold',
-  'Recruiting Completed',
+  'Active, not recruiting',
   'Trial Completed',
   'Terminated'
 );

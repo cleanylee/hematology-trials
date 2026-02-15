@@ -32,7 +32,7 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
         "Pending Approval",
         "Recruiting",
         "On Hold",
-        "Recruiting Completed",
+        "Active, not recruiting",
         "Trial Completed",
         "Terminated"
     ];
@@ -173,7 +173,7 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
                                         <td className="px-4 py-3">
                                             <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent whitespace-nowrap ${trial.status === 'Recruiting' ? 'bg-green-100 text-green-800' :
                                                 trial.status === 'Pending Approval' ? 'bg-yellow-100 text-yellow-800' :
-                                                    trial.status === 'Recruiting Completed' ? 'bg-blue-100 text-blue-800' :
+                                                    trial.status === 'Active, not recruiting' ? 'bg-blue-100 text-blue-800' :
                                                         trial.status === 'Terminated' ? 'bg-red-100 text-red-800' :
                                                             'bg-gray-100 text-gray-800'
                                                 }`}>
