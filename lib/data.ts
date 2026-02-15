@@ -24,6 +24,7 @@ export interface Trial {
     trialName: string;
     clinicalTrialNumber: string; // clinicaltrial.gov ID
     studyDrug: string; // Name and mechanism
+    mechanismOfAction: string;
     studyDesign: string; // RCT, Single arm, etc.
     controlArm: string;
     sponsor: string;

@@ -133,6 +133,17 @@ export function AdminTrialForm({ initialData, isEditing = false }: AdminTrialFor
                         />
                     </div>
                     <div className="space-y-2">
+                        <label className="text-sm font-medium">Mechanism of Action</label>
+                        <input
+                            type="text"
+                            name="mechanismOfAction"
+                            value={formData.mechanismOfAction || ""}
+                            onChange={handleChange}
+                            placeholder="e.g. BCL-2 Inhibitor"
+                            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        />
+                    </div>
+                    <div className="space-y-2">
                         <label className="text-sm font-medium">Study Drug</label>
                         <input
                             type="text"

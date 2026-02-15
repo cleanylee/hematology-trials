@@ -20,6 +20,7 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
         const matchesSearch =
             trial.trialName.toLowerCase().includes(searchQuery.toLowerCase()) ||
             trial.studyDrug.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            trial.mechanismOfAction?.toLowerCase().includes(searchQuery.toLowerCase()) ||
             trial.clinicalTrialNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
             trial.sponsor?.toLowerCase().includes(searchQuery.toLowerCase());
 

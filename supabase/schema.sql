@@ -38,10 +38,11 @@ create table public.trials (
   clinical_trial_number text not null, -- NCT Number
   
   study_drug text not null,
+  mechanism_of_action text null, -- New column
   study_design text null,
   control_arm text null,
   
-  sponsor text null, -- New column
+  sponsor text null,
   
   inclusion_criteria_simple text null,
   inclusion_criteria_detailed text null,

@@ -18,6 +18,7 @@ export interface Database {
                     trial_name: string
                     clinical_trial_number: string
                     study_drug: string
+                    mechanism_of_action: string | null
                     study_design: string | null
                     control_arm: string | null
                     sponsor: string | null
@@ -41,6 +42,7 @@ export interface Database {
                     trial_name: string
                     clinical_trial_number: string
                     study_drug: string
+                    mechanism_of_action?: string | null
                     study_design?: string | null
                     control_arm?: string | null
                     sponsor?: string | null
@@ -64,6 +66,7 @@ export interface Database {
                     trial_name?: string
                     clinical_trial_number?: string
                     study_drug?: string
+                    mechanism_of_action?: string | null
                     study_design?: string | null
                     control_arm?: string | null
                     sponsor?: string | null

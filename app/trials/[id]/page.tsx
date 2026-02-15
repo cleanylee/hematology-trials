@@ -71,6 +71,10 @@ export default async function TrialPage({
                                     <p>{trial.studyDrug}</p>
                                 </div>
                                 <div>
+                                    <h4 className="font-semibold text-sm text-muted-foreground">Mechanism of Action</h4>
+                                    <p>{trial.mechanismOfAction || "-"}</p>
+                                </div>
+                                <div>
                                     <h4 className="font-semibold text-sm text-muted-foreground">Sponsor</h4>
                                     <p>{trial.sponsor || "-"}</p>
                                 </div>
