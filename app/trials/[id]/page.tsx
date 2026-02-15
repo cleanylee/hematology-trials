@@ -1,12 +1,30 @@
 import { getTrial } from '@/lib/actions'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
+import { ArrowLeft } from 'lucide-react'
+
+// Map status to badge color variants
+const getStatusColor = (status: string) => {
+    switch (status) {
+        case 'Recruiting': return 'bg-green-100 text-green-800 hover:bg-green-100/80';
+        case 'Pending Approval': return 'bg-yellow-100 text-yellow-800 hover:bg-yellow-100/80';
+        case 'Recruiting Completed': return 'bg-blue-100 text-blue-800 hover:bg-blue-100/80';
+        case 'Trial Completed': return 'bg-gray-100 text-gray-800 hover:bg-gray-100/80';
+        case 'Terminated': return 'bg-red-100 text-red-800 hover:bg-red-100/80';
+        case 'On Hold': return 'bg-orange-100 text-orange-800 hover:bg-orange-100/80';
+        default: return 'bg-gray-100 text-gray-800 hover:bg-gray-100/80';
+    }
+}
 
 export const dynamic = 'force-dynamic'
 
-export default async function TrialPage({ params }: { params: { id: string } }) {
-    // Await params as required in newer Next.js versions if applicable, but for safety in generic version:
-    // In Next.js 15 params is async, so we await it
+export default async function TrialPage({
+    params,
+}: {
+    params: { id: string }
+}) {
     const { id } = await params
     const trial = await getTrial(id)
 
@@ -14,90 +32,140 @@ export default async function TrialPage({ params }: { params: { id: string } }) 
         return notFound()
     }
 
-    // The rest of the component rendering...
-    // I will copy the previous UI but populate with `trial`
     return (
-        <div className="min-h-screen bg-gray-50 py-12">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="mb-6">
-                    <Link href="/" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                        &larr; Back to Dashboard
-                    </Link>
+        <div className="container py-8 space-y-6 max-w-4xl mx-auto">
+            <Link
+                href="/"
+                className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Dashboard
+            </Link>
+
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h1 className="text-3xl font-bold tracking-tight">{trial.trialName}</h1>
+                    <div className="flex flex-wrap gap-2 mt-2 items-center text-sm text-muted-foreground">
+                        <span className="font-semibold text-primary">{trial.diseaseCategory}</span>
+                        <span>•</span>
+                        <span>{trial.clinicalTrialNumber}</span>
+                        <span>•</span>
+                        <span>Last updated: {new Date(trial.lastUpdated).toLocaleDateString()}</span>
+                    </div>
+                </div>
+                <Badge className={getStatusColor(trial.status)}>
+                    {trial.status}
+                </Badge>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="md:col-span-2 space-y-6">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Study Design</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <h4 className="font-semibold text-sm text-muted-foreground">Study Drug</h4>
+                                    <p>{trial.studyDrug}</p>
+                                </div>
+                                <div>
+                                    <h4 className="font-semibold text-sm text-muted-foreground">Sponsor</h4>
+                                    <p>{trial.sponsor || "-"}</p>
+                                </div>
+                                <div>
+                                    <h4 className="font-semibold text-sm text-muted-foreground">Design</h4>
+                                    <p>{trial.studyDesign || "-"}</p>
+                                </div>
+                                <div>
+                                    <h4 className="font-semibold text-sm text-muted-foreground">Control Arm</h4>
+                                    <p>{trial.controlArm || "-"}</p>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Criteria</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-6">
+                            <div>
+                                <h3 className="font-semibold mb-2">Inclusion Criteria</h3>
+                                <div className="bg-muted/50 p-4 rounded-lg text-sm">
+                                    <p className="mb-2 font-medium">{trial.inclusionCriteriaSimple}</p>
+                                    <p className="text-muted-foreground whitespace-pre-wrap">{trial.inclusionCriteriaDetailed}</p>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 className="font-semibold mb-2">Exclusion Criteria</h3>
+                                <div className="bg-muted/50 p-4 rounded-lg text-sm">
+                                    <p className="mb-2 font-medium">{trial.exclusionCriteriaSimple}</p>
+                                    <p className="text-muted-foreground whitespace-pre-wrap">{trial.exclusionCriteriaDetailed}</p>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    {trial.note && (
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Notes</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="whitespace-pre-wrap text-sm">{trial.note}</p>
+                            </CardContent>
+                        </Card>
+                    )}
                 </div>
 
-                <div className="overflow-hidden bg-white shadow sm:rounded-lg">
-                    <div className="px-4 py-5 sm:px-6">
-                        <div className="flex justify-between items-start">
-                            <div>
-                                <h3 className="text-lg font-medium leading-6 text-gray-900">{trial.trialName}</h3>
-                                <p className="mt-1 max-w-2xl text-sm text-gray-500">{trial.clinicalTrialNumber}</p>
+                <div className="space-y-6">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Enrollment</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="space-y-4">
+                                <div>
+                                    <div className="flex justify-between mb-2 text-sm">
+                                        <span>Progress</span>
+                                        <span className="font-medium">
+                                            {trial.alreadyEnrolled} / {trial.expectedEnrollment}
+                                        </span>
+                                    </div>
+                                    <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
+                                        <div
+                                            className="h-full bg-primary"
+                                            style={{
+                                                width: `${Math.min(((trial.alreadyEnrolled || 0) / (trial.expectedEnrollment || 1)) * 100, 100)}%`
+                                            }}
+                                        />
+                                    </div>
+                                </div>
                             </div>
-                            <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold ${trial.status === "Recruiting" ? "bg-green-100 text-green-800" :
-                                trial.status === "On Hold" ? "bg-yellow-100 text-yellow-800" :
-                                    "bg-gray-100 text-gray-800"
-                                }`}>
-                                {trial.status}
-                            </span>
-                        </div>
-                    </div>
-                    <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
-                        <dl className="sm:divide-y sm:divide-gray-200">
-                            <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
-                                <dt className="text-sm font-medium text-gray-500">Disease Category</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{trial.diseaseCategory}</dd>
-                            </div>
-                            <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
-                                <dt className="text-sm font-medium text-gray-500">Study Drug</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{trial.studyDrug}</dd>
-                            </div>
-                            <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
-                                <dt className="text-sm font-medium text-gray-500">Study Design</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{trial.studyDesign}</dd>
-                            </div>
-                            <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
-                                <dt className="text-sm font-medium text-gray-500">Control Arm</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{trial.controlArm}</dd>
-                            </div>
-                            {/* Criteria Section */}
-                            <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5 bg-gray-50/50">
-                                <dt className="text-sm font-medium text-gray-500">Inclusion Criteria (Summary)</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{trial.inclusionCriteriaSimple}</dd>
-                            </div>
-                            <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5 bg-gray-50/50">
-                                <dt className="text-sm font-medium text-gray-500">Inclusion Criteria (Detailed)</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 whitespace-pre-wrap">{trial.inclusionCriteriaDetailed}</dd>
-                            </div>
-                            <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5 bg-gray-50/50">
-                                <dt className="text-sm font-medium text-gray-500">Exclusion Criteria (Summary)</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{trial.exclusionCriteriaSimple}</dd>
-                            </div>
-                            <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5 bg-gray-50/50">
-                                <dt className="text-sm font-medium text-gray-500">Exclusion Criteria (Detailed)</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 whitespace-pre-wrap">{trial.exclusionCriteriaDetailed}</dd>
-                            </div>
+                        </CardContent>
+                    </Card>
 
-                            <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
-                                <dt className="text-sm font-medium text-gray-500">Enrollment</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{trial.alreadyEnrolled} / {trial.expectedEnrollment}</dd>
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Contact Information</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <div>
+                                <h4 className="font-semibold text-sm text-muted-foreground">Principal Investigator</h4>
+                                <p>{trial.pi}</p>
                             </div>
-                            <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
-                                <dt className="text-sm font-medium text-gray-500">Principal Investigator</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{trial.pi}</dd>
+                            <div>
+                                <h4 className="font-semibold text-sm text-muted-foreground">Study Nurse</h4>
+                                <p>{trial.studyNurse || "-"}</p>
                             </div>
-                            <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
-                                <dt className="text-sm font-medium text-gray-500">Study Nurse</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{trial.studyNurse} ({trial.contactTel})</dd>
+                            <div>
+                                <h4 className="font-semibold text-sm text-muted-foreground">Contact Tel</h4>
+                                <p>{trial.contactTel || "-"}</p>
                             </div>
-                            <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
-                                <dt className="text-sm font-medium text-gray-500">Note</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{trial.note}</dd>
-                            </div>
-                            <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
-                                <dt className="text-sm font-medium text-gray-500">Last Updated</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{new Date(trial.lastUpdated).toLocaleDateString()}</dd>
-                            </div>
-                        </dl>
-                    </div>
+                        </CardContent>
+                    </Card>
                 </div>
             </div>
         </div>

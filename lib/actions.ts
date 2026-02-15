@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { Database } from '@/lib/types_db'
-import { Trial } from '@/lib/data' // Use the application type for consistent transform
+import { Trial } from '@/lib/data'
 
 // Transform DB row to Application Trial type
 function transformTrial(row: Database['public']['Tables']['trials']['Row']): Trial {
@@ -16,6 +16,7 @@ function transformTrial(row: Database['public']['Tables']['trials']['Row']): Tri
         studyDrug: row.study_drug,
         studyDesign: row.study_design || '',
         controlArm: row.control_arm || '',
+        sponsor: row.sponsor || '',
         inclusionCriteriaSimple: row.inclusion_criteria_simple || '',
         inclusionCriteriaDetailed: row.inclusion_criteria_detailed || '',
         exclusionCriteriaSimple: row.exclusion_criteria_simple || '',
@@ -72,6 +73,7 @@ export async function createTrial(formData: FormData) {
         study_drug: formData.get('studyDrug') as string,
         study_design: formData.get('studyDesign') as string,
         control_arm: formData.get('controlArm') as string,
+        sponsor: formData.get('sponsor') as string,
         inclusion_criteria_simple: formData.get('inclusionCriteriaSimple') as string,
         inclusion_criteria_detailed: formData.get('inclusionCriteriaDetailed') as string,
         exclusion_criteria_simple: formData.get('exclusionCriteriaSimple') as string,
@@ -108,6 +110,7 @@ export async function updateTrial(id: string, formData: FormData) {
         study_drug: formData.get('studyDrug') as string,
         study_design: formData.get('studyDesign') as string,
         control_arm: formData.get('controlArm') as string,
+        sponsor: formData.get('sponsor') as string,
         inclusion_criteria_simple: formData.get('inclusionCriteriaSimple') as string,
         inclusion_criteria_detailed: formData.get('inclusionCriteriaDetailed') as string,
         exclusion_criteria_simple: formData.get('exclusionCriteriaSimple') as string,
@@ -134,8 +137,6 @@ export async function updateTrial(id: string, formData: FormData) {
 
     revalidatePath('/')
     revalidatePath('/admin')
-    // We don't redirect here because we might want to show a success message or stay on the page
-    // But for now, let's redirect back to admin
     redirect('/admin')
 }
 

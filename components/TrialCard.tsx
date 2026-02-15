@@ -1,61 +1,76 @@
-
+import Link from "next/link";
 import { Trial } from "@/lib/data";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Users, FileText, Pill } from "lucide-react";
 
 interface TrialCardProps {
     trial: Trial;
-    onClick?: () => void;
 }
 
-export function TrialCard({ trial, onClick }: TrialCardProps) {
-    const statusColors = {
-        Recruiting: "bg-green-100 text-green-800 border-green-200",
-        "On Hold": "bg-yellow-100 text-yellow-800 border-yellow-200",
-        Completed: "bg-blue-100 text-blue-800 border-blue-200",
-        Terminated: "bg-red-100 text-red-800 border-red-200",
-    };
+export function TrialCard({ trial }: TrialCardProps) {
+    const getStatusColor = (status: string) => {
+        switch (status) {
+            case 'Recruiting': return 'bg-green-100 text-green-800 hover:bg-green-100/80';
+            case 'Pending Approval': return 'bg-yellow-100 text-yellow-800 hover:bg-yellow-100/80';
+            case 'Recruiting Completed': return 'bg-blue-100 text-blue-800 hover:bg-blue-100/80';
+            case 'Trial Completed': return 'bg-gray-100 text-gray-800 hover:bg-gray-100/80';
+            case 'Terminated': return 'bg-red-100 text-red-800 hover:bg-red-100/80';
+            case 'On Hold': return 'bg-orange-100 text-orange-800 hover:bg-orange-100/80';
+            default: return 'bg-gray-100 text-gray-800 hover:bg-gray-100/80';
+        }
+    }
 
     return (
-        <div
-            onClick={onClick}
-            className="group relative flex flex-col justify-between space-y-4 rounded-xl border bg-card p-6 shadow-sm transition-all hover:shadow-md cursor-pointer"
-        >
-            <div className="space-y-2">
-                <div className="flex items-start justify-between">
-                    <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80">
+        <Card className="flex flex-col h-full hover:shadow-md transition-shadow">
+            <CardHeader className="pb-3">
+                <div className="flex justify-between items-start gap-2">
+                    <Badge variant="outline" className="mb-2">
                         {trial.diseaseCategory}
-                    </div>
-                    <span
-                        className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 ${statusColors[trial.status]
-                            }`}
-                    >
+                    </Badge>
+                    <Badge className={getStatusColor(trial.status)}>
                         {trial.status}
+                    </Badge>
+                </div>
+                <CardTitle className="line-clamp-2 text-lg leading-tight">
+                    <Link href={`/trials/${trial.id}`} className="hover:underline decoration-primary">
+                        {trial.trialName}
+                    </Link>
+                </CardTitle>
+                <CardDescription className="flex items-center gap-1 mt-1">
+                    {trial.clinicalTrialNumber}
+                    {trial.sponsor && (
+                        <>
+                            <span>•</span>
+                            <span className="truncate max-w-[150px]" title={trial.sponsor}>{trial.sponsor}</span>
+                        </>
+                    )}
+                </CardDescription>
+            </CardHeader>
+            <CardContent className="flex-1 pb-3">
+                <div className="space-y-2.5 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-2">
+                        <Pill className="h-4 w-4 shrink-0 text-primary/70" />
+                        <span className="font-medium text-foreground">{trial.studyDrug}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Users className="h-4 w-4 shrink-0" />
+                        <span>Expected: {trial.expectedEnrollment} patients</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                        <FileText className="h-4 w-4 shrink-0 mt-0.5" />
+                        <span className="line-clamp-2">{trial.studyDesign || "No design specified"}</span>
+                    </div>
+                </div>
+            </CardContent>
+            <CardFooter className="pt-0">
+                <div className="w-full pt-3 border-t flex justify-between items-center text-xs text-muted-foreground">
+                    <span>
+                        Enrolled: <span className="font-medium text-foreground">{trial.alreadyEnrolled}</span>
                     </span>
+                    <span>PI: {trial.pi}</span>
                 </div>
-                <h3 className="font-semibold leading-none tracking-tight text-xl group-hover:underline decoration-primary/50 underline-offset-4">
-                    {trial.trialName}
-                </h3>
-                <p className="text-sm text-muted-foreground">{trial.clinicalTrialNumber}</p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4 text-sm">
-                <div>
-                    <p className="font-medium text-muted-foreground">Study Drug</p>
-                    <p>{trial.studyDrug}</p>
-                </div>
-                <div>
-                    <p className="font-medium text-muted-foreground">PI</p>
-                    <p>{trial.pi}</p>
-                </div>
-                <div className="col-span-2">
-                    <p className="font-medium text-muted-foreground">Inclusion (Simple)</p>
-                    <p className="line-clamp-2">{trial.inclusionCriteriaSimple}</p>
-                </div>
-            </div>
-
-            <div className="pt-4 flex items-center justify-between text-xs text-muted-foreground border-t">
-                <div>Enrolled: {trial.alreadyEnrolled} / {trial.expectedEnrollment}</div>
-                <div>Nurse: {trial.studyNurse}</div>
-            </div>
-        </div>
+            </CardFooter>
+        </Card>
     );
 }

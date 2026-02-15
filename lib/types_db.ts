@@ -20,6 +20,7 @@ export interface Database {
                     study_drug: string
                     study_design: string | null
                     control_arm: string | null
+                    sponsor: string | null
                     inclusion_criteria_simple: string | null
                     inclusion_criteria_detailed: string | null
                     exclusion_criteria_simple: string | null
@@ -42,6 +43,7 @@ export interface Database {
                     study_drug: string
                     study_design?: string | null
                     control_arm?: string | null
+                    sponsor?: string | null
                     inclusion_criteria_simple?: string | null
                     inclusion_criteria_detailed?: string | null
                     exclusion_criteria_simple?: string | null
@@ -64,6 +66,7 @@ export interface Database {
                     study_drug?: string
                     study_design?: string | null
                     control_arm?: string | null
+                    sponsor?: string | null
                     inclusion_criteria_simple?: string | null
                     inclusion_criteria_detailed?: string | null
                     exclusion_criteria_simple?: string | null
@@ -95,7 +98,13 @@ export interface Database {
             | "MPN"
             | "GVHD"
             | "Other"
-            trial_status: "Recruiting" | "On Hold" | "Completed" | "Terminated"
+            trial_status:
+            | "Pending Approval"
+            | "Recruiting"
+            | "On Hold"
+            | "Recruiting Completed"
+            | "Trial Completed"
+            | "Terminated"
         }
         CompositeTypes: {
             [_ in never]: never

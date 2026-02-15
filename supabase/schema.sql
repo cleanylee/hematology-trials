@@ -1,3 +1,8 @@
+-- Drop previous types and tables if they exist
+drop table if exists public.trials;
+drop type if exists public.disease_category;
+drop type if exists public.trial_status;
+
 -- Create an Enum for Disease Category
 create type public.disease_category as enum (
   'AML',
@@ -12,9 +17,11 @@ create type public.disease_category as enum (
 
 -- Create an Enum for Trial Status
 create type public.trial_status as enum (
+  'Pending Approval',
   'Recruiting',
   'On Hold',
-  'Completed',
+  'Recruiting Completed',
+  'Trial Completed',
   'Terminated'
 );
 
@@ -31,6 +38,8 @@ create table public.trials (
   study_drug text not null,
   study_design text null,
   control_arm text null,
+  
+  sponsor text null, -- New column
   
   inclusion_criteria_simple text null,
   inclusion_criteria_detailed text null,

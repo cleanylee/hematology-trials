@@ -8,7 +8,13 @@ export type DiseaseCategory =
     | "GVHD"
     | "Other";
 
-export type TrialStatus = "Recruiting" | "On Hold" | "Completed" | "Terminated";
+export type TrialStatus =
+    | "Pending Approval"
+    | "Recruiting"
+    | "On Hold"
+    | "Recruiting Completed"
+    | "Trial Completed"
+    | "Terminated";
 
 export interface Trial {
     id: string;
@@ -18,6 +24,7 @@ export interface Trial {
     studyDrug: string; // Name and mechanism
     studyDesign: string; // RCT, Single arm, etc.
     controlArm: string;
+    sponsor: string;
     inclusionCriteriaSimple: string;
     inclusionCriteriaDetailed: string;
     exclusionCriteriaSimple: string;
@@ -31,5 +38,3 @@ export interface Trial {
     status: TrialStatus;
     lastUpdated: string;
 }
-
-// MOCK_TRIALS removed in favor of Supabase

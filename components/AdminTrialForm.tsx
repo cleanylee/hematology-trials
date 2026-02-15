@@ -46,7 +46,6 @@ export function AdminTrialForm({ initialData, isEditing = false }: AdminTrialFor
             } else {
                 await createTrial(data);
             }
-            // Actions redirect on success, so we don't need to push here unless we want to
         } catch (err) {
             console.error(err);
             setError("Something went wrong. Please try again.");
@@ -55,7 +54,14 @@ export function AdminTrialForm({ initialData, isEditing = false }: AdminTrialFor
     };
 
     const categories: DiseaseCategory[] = ["AML", "ALL", "MM", "Lymphoma", "PNH", "MPN", "GVHD", "Other"];
-    const statuses: TrialStatus[] = ["Recruiting", "On Hold", "Completed", "Terminated"];
+    const statuses: TrialStatus[] = [
+        "Pending Approval",
+        "Recruiting",
+        "On Hold",
+        "Recruiting Completed",
+        "Trial Completed",
+        "Terminated"
+    ];
 
     return (
         <form onSubmit={handleSubmit} className="space-y-8 bg-card p-6 rounded-xl border shadow-sm">
@@ -123,6 +129,17 @@ export function AdminTrialForm({ initialData, isEditing = false }: AdminTrialFor
                             value={formData.studyDrug || ""}
                             onChange={handleChange}
                             placeholder="Drug Name (Mechanism)"
+                            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        />
+                    </div>
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium">Sponsor</label>
+                        <input
+                            type="text"
+                            name="sponsor"
+                            value={formData.sponsor || ""}
+                            onChange={handleChange}
+                            placeholder="Sponsor Name"
                             className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                         />
                     </div>
