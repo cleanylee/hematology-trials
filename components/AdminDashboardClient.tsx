@@ -40,6 +40,7 @@ export default function AdminDashboardClient({ trials }: { trials: Trial[] }) {
                             <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
                                 <th className="h-12 px-4 align-middle font-medium text-muted-foreground">Status</th>
                                 <th className="h-12 px-4 align-middle font-medium text-muted-foreground">Title</th>
+                                <th className="h-12 px-4 align-middle font-medium text-muted-foreground">Sponsor</th>
                                 <th className="h-12 px-4 align-middle font-medium text-muted-foreground">PI</th>
                                 <th className="h-12 px-4 align-middle font-medium text-muted-foreground text-right">Actions</th>
                             </tr>
@@ -48,7 +49,13 @@ export default function AdminDashboardClient({ trials }: { trials: Trial[] }) {
                             {filteredTrials.map((trial) => (
                                 <tr key={trial.id} className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
                                     <td className="p-4 align-middle">
-                                        <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold ${trial.status === "Recruiting" ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-800"
+                                        <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold ${trial.status === 'Recruiting' ? 'bg-green-100 text-green-800' :
+                                                trial.status === 'Pending Approval' ? 'bg-yellow-100 text-yellow-800' :
+                                                    trial.status === 'Recruiting Completed' ? 'bg-blue-100 text-blue-800' :
+                                                        trial.status === 'Trial Completed' ? 'bg-gray-100 text-gray-800' :
+                                                            trial.status === 'Terminated' ? 'bg-red-100 text-red-800' :
+                                                                trial.status === 'On Hold' ? 'bg-orange-100 text-orange-800' :
+                                                                    'bg-gray-100 text-gray-800'
                                             }`}>
                                             {trial.status}
                                         </span>
@@ -57,6 +64,7 @@ export default function AdminDashboardClient({ trials }: { trials: Trial[] }) {
                                         {trial.trialName}
                                         <span className="block text-xs text-muted-foreground">{trial.clinicalTrialNumber}</span>
                                     </td>
+                                    <td className="p-4 align-middle">{trial.sponsor || '-'}</td>
                                     <td className="p-4 align-middle">{trial.pi}</td>
                                     <td className="p-4 align-middle text-right">
                                         <Link

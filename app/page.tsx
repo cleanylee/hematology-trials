@@ -1,5 +1,5 @@
 import { getTrials } from '@/lib/actions'
-import TrialsDashboardClient from '@/components/TrialsDashboardClient'
+import { TrialsDashboardClient } from '@/components/TrialsDashboardClient'
 
 export const dynamic = 'force-dynamic'
 
