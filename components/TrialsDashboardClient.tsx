@@ -144,31 +144,34 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
                         <table className="w-full text-sm text-left">
                             <thead className="bg-muted/50 text-muted-foreground font-medium border-b">
                                 <tr>
-                                    <th className="px-4 py-3">Trial Name</th>
-                                    <th className="px-4 py-3">Clinical #</th>
+                                    <th className="px-4 py-3 min-w-[150px]">Trial Name</th>
                                     <th className="px-4 py-3">Drug</th>
                                     <th className="px-4 py-3">Category</th>
                                     <th className="px-4 py-3">Status</th>
-                                    <th className="px-4 py-3 text-right">Enrollment</th>
+                                    <th className="px-4 py-3">Control Arm</th>
+                                    <th className="px-4 py-3 min-w-[200px]">Key Inclusion</th>
+                                    <th className="px-4 py-3">PI</th>
+                                    <th className="px-4 py-3">Nurse</th>
+                                    <th className="px-4 py-3 text-right">Enrolled</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y">
                                 {filteredTrials.map((trial) => (
-                                    <tr key={trial.id} className="hover:bg-muted/5 transition-colors">
+                                    <tr key={trial.id} className="hover:bg-muted/5 transition-colors align-top">
                                         <td className="px-4 py-3 font-medium">
-                                            <a href={`/trials/${trial.id}`} className="hover:underline text-primary">
+                                            <a href={`/trials/${trial.id}`} className="hover:underline text-primary block">
                                                 {trial.trialName}
                                             </a>
+                                            <span className="text-xs text-muted-foreground">{trial.clinicalTrialNumber}</span>
                                         </td>
-                                        <td className="px-4 py-3">{trial.clinicalTrialNumber}</td>
                                         <td className="px-4 py-3">{trial.studyDrug}</td>
                                         <td className="px-4 py-3">
-                                            <span className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80">
+                                            <span className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 whitespace-nowrap">
                                                 {trial.diseaseCategory}
                                             </span>
                                         </td>
                                         <td className="px-4 py-3">
-                                            <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent ${trial.status === 'Recruiting' ? 'bg-green-100 text-green-800' :
+                                            <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent whitespace-nowrap ${trial.status === 'Recruiting' ? 'bg-green-100 text-green-800' :
                                                 trial.status === 'Pending Approval' ? 'bg-yellow-100 text-yellow-800' :
                                                     trial.status === 'Recruiting Completed' ? 'bg-blue-100 text-blue-800' :
                                                         trial.status === 'Terminated' ? 'bg-red-100 text-red-800' :
@@ -177,7 +180,13 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
                                                 {trial.status}
                                             </span>
                                         </td>
-                                        <td className="px-4 py-3 text-right tabular-nums">
+                                        <td className="px-4 py-3 text-muted-foreground">{trial.controlArm || "-"}</td>
+                                        <td className="px-4 py-3 text-xs text-muted-foreground max-w-[300px]">
+                                            <p className="line-clamp-3">{trial.inclusionCriteriaSimple || "-"}</p>
+                                        </td>
+                                        <td className="px-4 py-3 whitespace-nowrap">{trial.pi}</td>
+                                        <td className="px-4 py-3 whitespace-nowrap">{trial.studyNurse || "-"}</td>
+                                        <td className="px-4 py-3 text-right tabular-nums whitespace-nowrap">
                                             {trial.alreadyEnrolled} / {trial.expectedEnrollment}
                                         </td>
                                     </tr>

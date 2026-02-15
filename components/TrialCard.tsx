@@ -61,6 +61,12 @@ export function TrialCard({ trial }: TrialCardProps) {
                         <FileText className="h-4 w-4 shrink-0 mt-0.5" />
                         <span className="line-clamp-2">{trial.studyDesign || "No design specified"}</span>
                     </div>
+                    {trial.inclusionCriteriaSimple && (
+                        <div className="mt-3 pt-3 border-t">
+                            <span className="text-xs font-semibold text-foreground uppercase tracking-wider block mb-1">Key Inclusion</span>
+                            <p className="line-clamp-3 text-xs leading-relaxed">{trial.inclusionCriteriaSimple}</p>
+                        </div>
+                    )}
                 </div>
             </CardContent>
             <CardFooter className="pt-0">
