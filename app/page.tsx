@@ -15,9 +15,14 @@ export default async function Home() {
                         <div className="p-2 bg-primary/10 rounded-lg">
                             <Microscope className="h-8 w-8 text-primary" />
                         </div>
-                        <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
-                            NCKUH Hematology Trial Dashboard
-                        </h1>
+                        <div className="flex flex-col">
+                            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
+                                成大醫院血液科臨床試驗
+                            </h1>
+                            <span className="text-muted-foreground text-lg">
+                                NCKUH Hematology Trial Dashboard
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
