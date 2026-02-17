@@ -145,13 +145,14 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
                             <thead className="bg-muted/50 text-muted-foreground font-medium border-b">
                                 <tr>
                                     <th className="px-4 py-3 min-w-[150px]">Trial Name</th>
-                                    <th className="px-4 py-3">Drug</th>
                                     <th className="px-4 py-3">Category</th>
                                     <th className="px-4 py-3">Status</th>
-                                    <th className="px-4 py-3">Control Arm</th>
+                                    <th className="px-4 py-3">Drug</th>
+                                    <th className="px-4 py-3">Control</th>
                                     <th className="px-4 py-3 min-w-[200px]">Key Inclusion</th>
                                     <th className="px-4 py-3">PI</th>
                                     <th className="px-4 py-3">Nurse</th>
+                                    <th className="px-4 py-3">TEL</th>
                                     <th className="px-4 py-3 text-right">Enrolled</th>
                                 </tr>
                             </thead>
@@ -164,7 +165,6 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
                                             </a>
                                             <span className="text-xs text-muted-foreground">{trial.clinicalTrialNumber}</span>
                                         </td>
-                                        <td className="px-4 py-3">{trial.studyDrug}</td>
                                         <td className="px-4 py-3">
                                             <span className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 whitespace-nowrap">
                                                 {trial.diseaseCategory}
@@ -180,12 +180,14 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
                                                 {trial.status}
                                             </span>
                                         </td>
+                                        <td className="px-4 py-3">{trial.studyDrug}</td>
                                         <td className="px-4 py-3 text-muted-foreground">{trial.controlArm || "-"}</td>
                                         <td className="px-4 py-3 text-xs text-muted-foreground max-w-[300px]">
                                             <p className="line-clamp-3">{trial.inclusionCriteriaSimple || "-"}</p>
                                         </td>
                                         <td className="px-4 py-3 whitespace-nowrap">{trial.pi}</td>
                                         <td className="px-4 py-3 whitespace-nowrap">{trial.studyNurse || "-"}</td>
+                                        <td className="px-4 py-3 whitespace-nowrap">{trial.contactTel || "-"}</td>
                                         <td className="px-4 py-3 text-right tabular-nums whitespace-nowrap">
                                             {trial.alreadyEnrolled} / {trial.expectedEnrollment}
                                         </td>

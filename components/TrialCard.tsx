@@ -53,10 +53,7 @@ export function TrialCard({ trial }: TrialCardProps) {
                         <Pill className="h-4 w-4 shrink-0 text-primary/70" />
                         <span className="font-medium text-foreground">{trial.studyDrug}</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <Users className="h-4 w-4 shrink-0" />
-                        <span>Expected: {trial.expectedEnrollment} patients</span>
-                    </div>
+
                     <div className="flex items-start gap-2">
                         <FileText className="h-4 w-4 shrink-0 mt-0.5" />
                         <span className="line-clamp-2">{trial.studyDesign || "No design specified"}</span>
@@ -69,12 +66,13 @@ export function TrialCard({ trial }: TrialCardProps) {
                     )}
                 </div>
             </CardContent>
-            <CardFooter className="pt-0">
-                <div className="w-full pt-3 border-t flex justify-between items-center text-xs text-muted-foreground">
-                    <span>
-                        Enrolled: <span className="font-medium text-foreground">{trial.alreadyEnrolled}</span>
-                    </span>
-                    <span>PI: {trial.pi}</span>
+            <CardFooter className="pt-0 flex flex-col items-start">
+                <div className="w-full pt-3 border-t text-xs text-muted-foreground">
+                    <div className="mb-2 truncate">PI: {trial.pi}</div>
+                    <div className="flex items-center gap-1">
+                        <Users className="h-3 w-3" />
+                        Enrolled/ Expected: <span className="font-medium text-foreground">{trial.alreadyEnrolled}/{trial.expectedEnrollment}</span>
+                    </div>
                 </div>
             </CardFooter>
         </Card>
