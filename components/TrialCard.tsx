@@ -25,7 +25,7 @@ export function TrialCard({ trial }: TrialCardProps) {
         <Card className="flex flex-col h-full hover:shadow-md transition-shadow">
             <CardHeader className="pb-3">
                 <div className="flex justify-between items-start gap-2">
-                    <Badge className={`mb-2 hover:bg-opacity-80 border ${getCategoryColor(trial.diseaseCategory)}`}>
+                    <Badge className={`mb-2 border ${getCategoryColor(trial.diseaseCategory)}`}>
                         {trial.diseaseCategory}
                     </Badge>
                     <Badge className={getStatusColor(trial.status)}>

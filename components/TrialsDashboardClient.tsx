@@ -166,7 +166,7 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
                                             <span className="text-xs text-muted-foreground">{trial.clinicalTrialNumber}</span>
                                         </td>
                                         <td className="px-4 py-3">
-                                            <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 whitespace-nowrap ${getCategoryColor(trial.diseaseCategory)}`}>
+                                            <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold whitespace-nowrap ${getCategoryColor(trial.diseaseCategory)}`}>
                                                 {trial.diseaseCategory}
                                             </span>
                                         </td>
