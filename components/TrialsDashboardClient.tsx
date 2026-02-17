@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Trial, DiseaseCategory, TrialStatus } from "@/lib/data";
+import { Trial, DiseaseCategory, TrialStatus, getCategoryColor } from "@/lib/data";
 import { TrialCard } from "./TrialCard";
 
 interface TrialsDashboardClientProps {
@@ -166,7 +166,7 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
                                             <span className="text-xs text-muted-foreground">{trial.clinicalTrialNumber}</span>
                                         </td>
                                         <td className="px-4 py-3">
-                                            <span className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 whitespace-nowrap">
+                                            <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 whitespace-nowrap ${getCategoryColor(trial.diseaseCategory)}`}>
                                                 {trial.diseaseCategory}
                                             </span>
                                         </td>

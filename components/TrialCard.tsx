@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Trial } from "@/lib/data";
+import { Trial, getCategoryColor } from "@/lib/data";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Users, FileText, Pill } from "lucide-react";
@@ -25,7 +25,7 @@ export function TrialCard({ trial }: TrialCardProps) {
         <Card className="flex flex-col h-full hover:shadow-md transition-shadow">
             <CardHeader className="pb-3">
                 <div className="flex justify-between items-start gap-2">
-                    <Badge variant="outline" className="mb-2">
+                    <Badge className={`mb-2 hover:bg-opacity-80 border ${getCategoryColor(trial.diseaseCategory)}`}>
                         {trial.diseaseCategory}
                     </Badge>
                     <Badge className={getStatusColor(trial.status)}>
