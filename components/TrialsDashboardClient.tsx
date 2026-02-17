@@ -1,11 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Trial, DiseaseCategory, TrialStatus, getCategoryColor } from "@/lib/data";
 import { TrialCard } from "./TrialCard";
+import { ChevronUp, ChevronDown, ChevronsUpDown } from "lucide-react";
 
 interface TrialsDashboardClientProps {
     trials: Trial[];
+}
+
+type SortKey = 'trialName' | 'diseaseCategory' | 'status' | 'studyDrug' | 'controlArm' | 'pi' | 'studyNurse' | 'contactTel' | 'alreadyEnrolled';
+
+interface SortConfig {
+    key: SortKey;
+    direction: 'asc' | 'desc';
 }
 
 export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
@@ -13,19 +21,78 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
     const [selectedCategory, setSelectedCategory] = useState<DiseaseCategory | 'All'>('All');
     const [selectedStatus, setSelectedStatus] = useState<TrialStatus | 'All'>('Recruiting'); // Default active trials
     const [searchQuery, setSearchQuery] = useState("");
+    const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'trialName', direction: 'asc' });
 
-    const filteredTrials = trials.filter((trial) => {
-        const matchesCategory = selectedCategory === 'All' || trial.diseaseCategory === selectedCategory;
-        const matchesStatus = selectedStatus === 'All' || trial.status === selectedStatus;
-        const matchesSearch =
-            trial.trialName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            trial.studyDrug.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            trial.mechanismOfAction?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            trial.clinicalTrialNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            trial.sponsor?.toLowerCase().includes(searchQuery.toLowerCase());
+    const filteredTrials = useMemo(() => {
+        return trials.filter((trial) => {
+            const matchesCategory = selectedCategory === 'All' || trial.diseaseCategory === selectedCategory;
+            const matchesStatus = selectedStatus === 'All' || trial.status === selectedStatus;
+            const matchesSearch =
+                trial.trialName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                trial.studyDrug.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                trial.mechanismOfAction?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                trial.clinicalTrialNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                trial.sponsor?.toLowerCase().includes(searchQuery.toLowerCase());
 
-        return matchesCategory && matchesSearch && matchesStatus;
-    });
+            return matchesCategory && matchesSearch && matchesStatus;
+        });
+    }, [trials, selectedCategory, selectedStatus, searchQuery]);
+
+    const sortedTrials = useMemo(() => {
+        const sorted = [...filteredTrials];
+        sorted.sort((a, b) => {
+            let aValue: any = a[sortConfig.key];
+            let bValue: any = b[sortConfig.key];
+
+            // Handle numeric sorting for enrollment
+            if (sortConfig.key === 'alreadyEnrolled') {
+                aValue = a.alreadyEnrolled;
+                bValue = b.alreadyEnrolled;
+            }
+
+            // Handle null/undefined values
+            if (aValue === null || aValue === undefined) aValue = '';
+            if (bValue === null || bValue === undefined) bValue = '';
+
+            if (typeof aValue === 'string') {
+                aValue = aValue.toLowerCase();
+                bValue = bValue.toLowerCase();
+            }
+
+            if (aValue < bValue) {
+                return sortConfig.direction === 'asc' ? -1 : 1;
+            }
+            if (aValue > bValue) {
+                return sortConfig.direction === 'asc' ? 1 : -1;
+            }
+            return 0;
+        });
+        return sorted;
+    }, [filteredTrials, sortConfig]);
+
+    const handleSort = (key: SortKey) => {
+        setSortConfig((current) => ({
+            key,
+            direction: current.key === key && current.direction === 'asc' ? 'desc' : 'asc',
+        }));
+    };
+
+    const SortIcon = ({ columnKey }: { columnKey: SortKey }) => {
+        if (sortConfig.key !== columnKey) return <ChevronsUpDown className="ml-1 h-3 w-3 text-muted-foreground/50" />;
+        return sortConfig.direction === 'asc' ? <ChevronUp className="ml-1 h-3 w-3 text-foreground" /> : <ChevronDown className="ml-1 h-3 w-3 text-foreground" />;
+    };
+
+    const TableHeader = ({ columnKey, label, className = "" }: { columnKey: SortKey; label: string; className?: string }) => (
+        <th
+            className={`px-4 py-3 cursor-pointer hover:bg-muted/50 transition-colors group select-none ${className}`}
+            onClick={() => handleSort(columnKey)}
+        >
+            <div className={`flex items-center ${className.includes('text-right') ? 'justify-end' : ''}`}>
+                {label}
+                <SortIcon columnKey={columnKey} />
+            </div>
+        </th>
+    );
 
     const categories: DiseaseCategory[] = ["AML-MDS", "ALL", "CLL", "CML", "MM", "Lymphoma", "MPN", "PNH", "GVHD", "Others"];
     const statuses: TrialStatus[] = [
@@ -134,7 +201,7 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
                 </div>
             ) : viewMode === 'grid' ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {filteredTrials.map((trial) => (
+                    {sortedTrials.map((trial) => (
                         <TrialCard key={trial.id} trial={trial} />
                     ))}
                 </div>
@@ -144,20 +211,20 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
                         <table className="w-full text-sm text-left">
                             <thead className="bg-muted/50 text-muted-foreground font-medium border-b">
                                 <tr>
-                                    <th className="px-4 py-3 min-w-[150px]">Trial Name</th>
-                                    <th className="px-4 py-3">Category</th>
-                                    <th className="px-4 py-3">Status</th>
-                                    <th className="px-4 py-3">Drug</th>
-                                    <th className="px-4 py-3">Control</th>
+                                    <TableHeader columnKey="trialName" label="Trial Name" className="min-w-[150px]" />
+                                    <TableHeader columnKey="diseaseCategory" label="Category" />
+                                    <TableHeader columnKey="status" label="Status" />
+                                    <TableHeader columnKey="studyDrug" label="Drug" />
+                                    <TableHeader columnKey="controlArm" label="Control" />
                                     <th className="px-4 py-3 min-w-[200px]">Key Inclusion</th>
-                                    <th className="px-4 py-3">PI</th>
-                                    <th className="px-4 py-3">Nurse</th>
-                                    <th className="px-4 py-3">TEL</th>
-                                    <th className="px-4 py-3 text-right">Enrolled</th>
+                                    <TableHeader columnKey="pi" label="PI" />
+                                    <TableHeader columnKey="studyNurse" label="Nurse" />
+                                    <TableHeader columnKey="contactTel" label="TEL" />
+                                    <TableHeader columnKey="alreadyEnrolled" label="Enrolled" className="text-right" />
                                 </tr>
                             </thead>
                             <tbody className="divide-y">
-                                {filteredTrials.map((trial) => (
+                                {sortedTrials.map((trial) => (
                                     <tr key={trial.id} className="hover:bg-muted/5 transition-colors align-top">
                                         <td className="px-4 py-3 font-medium">
                                             <a href={`/trials/${trial.id}`} className="hover:underline text-primary block">
