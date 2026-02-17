@@ -66,12 +66,20 @@ export function TrialCard({ trial }: TrialCardProps) {
                     )}
                 </div>
             </CardContent>
-            <CardFooter className="pt-0 flex flex-col items-start">
-                <div className="w-full pt-3 border-t text-xs text-muted-foreground">
-                    <div className="mb-2 truncate">PI: {trial.pi}</div>
-                    <div className="flex items-center gap-1">
-                        <Users className="h-3 w-3" />
-                        Enrolled/ Expected: <span className="font-medium text-foreground">{trial.alreadyEnrolled}/{trial.expectedEnrollment}</span>
+            <CardFooter className="pt-0 flex flex-col items-start bg-muted/20 px-4 py-3 border-t">
+                <div className="w-full space-y-1.5 text-xs text-muted-foreground">
+                    <div className="flex justify-between items-center gap-2">
+                        <span className="truncate max-w-[50%]">PI: {trial.pi}</span>
+                        {(trial.studyNurse || trial.contactTel) && (
+                            <span className="truncate max-w-[50%] text-right" title={`${trial.studyNurse || '-'} / ${trial.contactTel || '-'}`}>
+                                {trial.studyNurse} {trial.contactTel && `(${trial.contactTel})`}
+                            </span>
+                        )}
+                    </div>
+                    <div className="flex items-center gap-1.5 pt-1 border-t border-dashed border-muted-foreground/20">
+                        <Users className="h-3.5 w-3.5 text-primary/70" />
+                        <span>Enrolled/ Expected:</span>
+                        <span className="font-medium text-foreground ml-auto">{trial.alreadyEnrolled} / {trial.expectedEnrollment}</span>
                     </div>
                 </div>
             </CardFooter>
