@@ -38,9 +38,11 @@ export default function AdminDashboardClient({ trials }: { trials: Trial[] }) {
                     <table className="w-full caption-bottom text-sm text-left">
                         <thead className="[&_tr]:border-b">
                             <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                                <th className="h-12 px-4 align-middle font-medium text-muted-foreground">Status</th>
+                                <th className="h-12 px-4 align-middle font-medium text-muted-foreground w-[120px]">Status</th>
                                 <th className="h-12 px-4 align-middle font-medium text-muted-foreground">Title</th>
-                                <th className="h-12 px-4 align-middle font-medium text-muted-foreground">Sponsor</th>
+                                <th className="h-12 px-4 align-middle font-medium text-muted-foreground">Category</th>
+                                <th className="h-12 px-4 align-middle font-medium text-muted-foreground">Study Drug</th>
+                                <th className="h-12 px-4 align-middle font-medium text-muted-foreground">Nurse</th>
                                 <th className="h-12 px-4 align-middle font-medium text-muted-foreground">PI</th>
                                 <th className="h-12 px-4 align-middle font-medium text-muted-foreground text-right">Actions</th>
                             </tr>
@@ -64,7 +66,13 @@ export default function AdminDashboardClient({ trials }: { trials: Trial[] }) {
                                         {trial.trialName}
                                         <span className="block text-xs text-muted-foreground">{trial.clinicalTrialNumber}</span>
                                     </td>
-                                    <td className="p-4 align-middle">{trial.sponsor || '-'}</td>
+                                    <td className="p-4 align-middle">
+                                        <span className="inline-flex items-center rounded-md bg-muted px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10">
+                                            {trial.diseaseCategory}
+                                        </span>
+                                    </td>
+                                    <td className="p-4 align-middle text-xs">{trial.studyDrug}</td>
+                                    <td className="p-4 align-middle text-xs">{trial.studyNurse || '-'}</td>
                                     <td className="p-4 align-middle">{trial.pi}</td>
                                     <td className="p-4 align-middle text-right">
                                         <Link

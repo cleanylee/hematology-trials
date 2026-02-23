@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { Trial, DiseaseCategory, TrialStatus, getCategoryColor } from "@/lib/data";
 import { TrialCard } from "./TrialCard";
-import { ChevronUp, ChevronDown, ChevronsUpDown } from "lucide-react";
+import { ChevronUp, ChevronDown, ChevronsUpDown, Tag } from "lucide-react";
 
 interface TrialsDashboardClientProps {
     trials: Trial[];
@@ -212,34 +212,35 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
                         <table className="w-full text-sm text-left">
                             <thead className="bg-muted/50 text-muted-foreground font-medium border-b">
                                 <tr>
-                                    <TableHeader columnKey="trialName" label="Trial Name" className="min-w-[150px]" />
-                                    <TableHeader columnKey="diseaseCategory" label="Category" />
-                                    <TableHeader columnKey="status" label="Status" />
-                                    <TableHeader columnKey="studyDrug" label="Drug" />
-                                    <TableHeader columnKey="controlArm" label="Control" />
-                                    <th className="px-4 py-3 min-w-[200px]">Key Inclusion</th>
-                                    <TableHeader columnKey="pi" label="PI" />
-                                    <TableHeader columnKey="studyNurse" label="Nurse" />
-                                    <TableHeader columnKey="contactTel" label="TEL" />
-                                    <TableHeader columnKey="alreadyEnrolled" label="Enrolled" className="text-right" />
+                                    <TableHeader columnKey="trialName" label="Trial Name" className="min-w-[150px] px-3 py-2" />
+                                    <TableHeader columnKey="diseaseCategory" label="Category" className="px-3 py-2" />
+                                    <TableHeader columnKey="status" label="Status" className="px-3 py-2" />
+                                    <TableHeader columnKey="studyDrug" label="Drug" className="px-3 py-2" />
+                                    <TableHeader columnKey="controlArm" label="Control" className="px-3 py-2" />
+                                    <th className="px-3 py-2">Tags</th>
+                                    <th className="px-3 py-2 min-w-[350px]">Key Inclusion</th>
+                                    <TableHeader columnKey="pi" label="PI" className="px-3 py-2" />
+                                    <TableHeader columnKey="studyNurse" label="Nurse" className="px-3 py-2" />
+                                    <TableHeader columnKey="contactTel" label="TEL" className="px-3 py-2" />
+                                    <TableHeader columnKey="alreadyEnrolled" label="Enrolled" className="text-right px-3 py-2" />
                                 </tr>
                             </thead>
-                            <tbody className="divide-y">
+                            <tbody className="divide-y text-xs">
                                 {sortedTrials.map((trial) => (
                                     <tr key={trial.id} className="hover:bg-muted/5 transition-colors align-top">
-                                        <td className="px-4 py-3 font-medium">
-                                            <a href={`/trials/${trial.id}`} className="hover:underline text-primary block">
+                                        <td className="px-3 py-2 font-medium">
+                                            <a href={`/trials/${trial.id}`} className="hover:underline text-primary block leading-tight">
                                                 {trial.trialName}
                                             </a>
-                                            <span className="text-xs text-muted-foreground">{trial.clinicalTrialNumber}</span>
+                                            <span className="text-[10px] text-muted-foreground">{trial.clinicalTrialNumber}</span>
                                         </td>
-                                        <td className="px-4 py-3">
-                                            <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold whitespace-nowrap ${getCategoryColor(trial.diseaseCategory)}`}>
+                                        <td className="px-3 py-2">
+                                            <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-semibold whitespace-nowrap ${getCategoryColor(trial.diseaseCategory)}`}>
                                                 {trial.diseaseCategory}
                                             </span>
                                         </td>
-                                        <td className="px-4 py-3">
-                                            <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent whitespace-nowrap ${trial.status === 'Recruiting' ? 'bg-green-100 text-green-800' :
+                                        <td className="px-3 py-2">
+                                            <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent whitespace-nowrap ${trial.status === 'Recruiting' ? 'bg-green-100 text-green-800' :
                                                 trial.status === 'Pending Approval' ? 'bg-yellow-100 text-yellow-800' :
                                                     trial.status === 'Active, not recruiting' ? 'bg-blue-100 text-blue-800' :
                                                         trial.status === 'Terminated' ? 'bg-red-100 text-red-800' :
@@ -248,15 +249,25 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
                                                 {trial.status}
                                             </span>
                                         </td>
-                                        <td className="px-4 py-3">{trial.studyDrug}</td>
-                                        <td className="px-4 py-3 text-muted-foreground">{trial.controlArm || "-"}</td>
-                                        <td className="px-4 py-3 text-xs text-muted-foreground max-w-[300px]">
-                                            <p className="line-clamp-3">{trial.inclusionCriteriaSimple || "-"}</p>
+                                        <td className="px-3 py-2">{trial.studyDrug}</td>
+                                        <td className="px-3 py-2 text-muted-foreground">{trial.controlArm || "-"}</td>
+                                        <td className="px-3 py-2">
+                                            <div className="flex flex-wrap gap-1">
+                                                {trial.tags?.map(tag => (
+                                                    <span key={tag} className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-muted text-[9px] font-medium text-muted-foreground border">
+                                                        <Tag className="h-2 w-2" />
+                                                        {tag}
+                                                    </span>
+                                                ))}
+                                            </div>
                                         </td>
-                                        <td className="px-4 py-3 whitespace-nowrap">{trial.pi}</td>
-                                        <td className="px-4 py-3 whitespace-nowrap">{trial.studyNurse || "-"}</td>
-                                        <td className="px-4 py-3 whitespace-nowrap">{trial.contactTel || "-"}</td>
-                                        <td className="px-4 py-3 text-right tabular-nums whitespace-nowrap">
+                                        <td className="px-3 py-2 text-[11px] text-muted-foreground">
+                                            <p className="line-clamp-4 leading-normal">{trial.inclusionCriteriaSimple || "-"}</p>
+                                        </td>
+                                        <td className="px-3 py-2 whitespace-nowrap">{trial.pi}</td>
+                                        <td className="px-3 py-2 whitespace-nowrap">{trial.studyNurse || "-"}</td>
+                                        <td className="px-3 py-2 whitespace-nowrap">{trial.contactTel || "-"}</td>
+                                        <td className="px-3 py-2 text-right tabular-nums whitespace-nowrap">
                                             {trial.alreadyEnrolled} / {trial.expectedEnrollment}
                                         </td>
                                     </tr>
