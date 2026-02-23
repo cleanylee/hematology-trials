@@ -217,7 +217,7 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
                                     <TableHeader columnKey="status" label="Status" className="px-3 py-2" />
                                     <TableHeader columnKey="studyDrug" label="Drug" className="px-3 py-2" />
                                     <TableHeader columnKey="controlArm" label="Control" className="px-3 py-2" />
-                                    <th className="px-3 py-2">Tags</th>
+                                    <th className="px-3 py-2 min-w-[150px]">Tags</th>
                                     <th className="px-3 py-2 min-w-[350px]">Key Inclusion</th>
                                     <TableHeader columnKey="pi" label="PI" className="px-3 py-2" />
                                     <TableHeader columnKey="studyNurse" label="Nurse" className="px-3 py-2" />
