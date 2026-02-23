@@ -58,6 +58,7 @@ create table public.trials (
   
   note text null,
   status trial_status not null default 'Recruiting'::trial_status,
+  tags text[] null default '{}',
   
   constraint trials_pkey primary key (id)
 );

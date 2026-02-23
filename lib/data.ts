@@ -39,6 +39,7 @@ export interface Trial {
     pi: string; // Principal Investigator
     note: string;
     status: TrialStatus;
+    tags: string[];
     lastUpdated: string;
 }
 

@@ -165,6 +165,20 @@ export function AdminTrialForm({ initialData, isEditing = false }: AdminTrialFor
                             className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                         />
                     </div>
+                    <div className="space-y-2 md:col-span-2">
+                        <label className="text-sm font-medium">Tags (comma-separated)</label>
+                        <input
+                            type="text"
+                            name="tags"
+                            value={formData.tags?.join(', ') || ""}
+                            onChange={(e) => {
+                                const val = e.target.value;
+                                setFormData(prev => ({ ...prev, tags: val.split(',').map(t => t.trim()) }));
+                            }}
+                            placeholder="e.g. Phase I, Targeted Therapy, First-in-human"
+                            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        />
+                    </div>
                 </div>
             </div>
 

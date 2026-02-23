@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Trial, getCategoryColor } from "@/lib/data";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Users, FileText, Pill } from "lucide-react";
+import { Users, FileText, Pill, Tag } from "lucide-react";
 
 interface TrialCardProps {
     trial: Trial;
@@ -37,13 +37,25 @@ export function TrialCard({ trial }: TrialCardProps) {
                         {trial.trialName}
                     </Link>
                 </CardTitle>
-                <CardDescription className="flex items-center gap-1 mt-1">
-                    {trial.clinicalTrialNumber}
-                    {trial.sponsor && (
-                        <>
-                            <span>•</span>
-                            <span className="truncate max-w-[150px]" title={trial.sponsor}>{trial.sponsor}</span>
-                        </>
+                <CardDescription className="flex flex-col gap-1.5 mt-1">
+                    <div className="flex items-center gap-1">
+                        {trial.clinicalTrialNumber}
+                        {trial.sponsor && (
+                            <>
+                                <span>•</span>
+                                <span className="truncate max-w-[150px]" title={trial.sponsor}>{trial.sponsor}</span>
+                            </>
+                        )}
+                    </div>
+                    {trial.tags && trial.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mt-1">
+                            {trial.tags.map(tag => (
+                                <span key={tag} className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-muted text-[10px] font-medium text-muted-foreground border">
+                                    <Tag className="h-2 w-2" />
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
                     )}
                 </CardDescription>
             </CardHeader>

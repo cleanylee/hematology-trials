@@ -33,6 +33,7 @@ export interface Database {
                     pi: string
                     note: string | null
                     status: string
+                    tags: string[] | null
                 }
                 Insert: {
                     id?: string
@@ -57,6 +58,7 @@ export interface Database {
                     pi: string
                     note?: string | null
                     status?: string
+                    tags?: string[] | null
                 }
                 Update: {
                     id?: string
@@ -81,6 +83,7 @@ export interface Database {
                     pi?: string
                     note?: string | null
                     status?: string
+                    tags?: string[] | null
                 }
                 Relationships: []
             }

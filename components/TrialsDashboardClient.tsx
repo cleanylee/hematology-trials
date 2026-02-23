@@ -32,7 +32,8 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
                 trial.studyDrug.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 trial.mechanismOfAction?.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 trial.clinicalTrialNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                trial.sponsor?.toLowerCase().includes(searchQuery.toLowerCase());
+                trial.sponsor?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                trial.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
 
             return matchesCategory && matchesSearch && matchesStatus;
         });

@@ -29,6 +29,7 @@ function transformTrial(row: Database['public']['Tables']['trials']['Row']): Tri
         pi: row.pi,
         note: row.note || '',
         status: row.status as any,
+        tags: row.tags || [],
         lastUpdated: row.updated_at || row.created_at,
     }
 }
@@ -67,6 +68,9 @@ export async function getTrial(id: string) {
 export async function createTrial(formData: FormData) {
     const supabase = await createClient()
 
+    const tags = formData.get('tags') as string
+    const tagsArray = tags ? tags.split(',').map(t => t.trim()).filter(t => t !== '') : []
+
     const trialData = {
         disease_category: formData.get('diseaseCategory') as string,
         trial_name: formData.get('trialName') as string,
@@ -87,6 +91,7 @@ export async function createTrial(formData: FormData) {
         pi: formData.get('pi') as string,
         note: formData.get('note') as string,
         status: formData.get('status') as string,
+        tags: tagsArray,
         updated_at: new Date().toISOString(),
     }
 
@@ -105,6 +110,9 @@ export async function createTrial(formData: FormData) {
 export async function updateTrial(id: string, formData: FormData) {
     const supabase = await createClient()
 
+    const tags = formData.get('tags') as string
+    const tagsArray = tags ? tags.split(',').map(t => t.trim()).filter(t => t !== '') : []
+
     const trialData = {
         disease_category: formData.get('diseaseCategory') as string,
         trial_name: formData.get('trialName') as string,
@@ -125,6 +133,7 @@ export async function updateTrial(id: string, formData: FormData) {
         pi: formData.get('pi') as string,
         note: formData.get('note') as string,
         status: formData.get('status') as string,
+        tags: tagsArray,
         updated_at: new Date().toISOString(),
     }
 
