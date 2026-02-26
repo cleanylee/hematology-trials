@@ -3,7 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Edit } from 'lucide-react'
+import { createClient } from '@/lib/supabase/server'
 
 // Map status to badge color variants
 const getStatusColor = (status: string) => {
@@ -32,15 +33,30 @@ export default async function TrialPage({
         return notFound()
     }
 
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+
     return (
         <div className="container py-8 space-y-6 max-w-4xl mx-auto">
-            <Link
-                href="/"
-                className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to Dashboard
-            </Link>
+            <div className="flex items-center justify-between">
+                <Link
+                    href="/"
+                    className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    Back to Dashboard
+                </Link>
+
+                {user && (
+                    <Link
+                        href={`/admin/trials/${id}/edit`}
+                        className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-4"
+                    >
+                        <Edit className="mr-2 h-4 w-4" />
+                        Edit Trial
+                    </Link>
+                )}
+            </div>
 
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
