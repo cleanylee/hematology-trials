@@ -257,8 +257,8 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
                                     <TableHeader columnKey="status" label="Status" className="px-3 py-2" />
                                     <TableHeader columnKey="studyDrug" label="Drug" className="px-3 py-2" />
                                     <TableHeader columnKey="controlArm" label="Control" className="px-3 py-2" />
-                                    <th className="px-3 py-2 min-w-[150px]">Tags</th>
                                     <th className="px-3 py-2 min-w-[350px]">Key Inclusion</th>
+                                    <th className="px-3 py-2 min-w-[150px]">Tags</th>
                                     <TableHeader columnKey="pi" label="PI" className="px-3 py-2" />
                                     <TableHeader columnKey="studyNurse" label="Nurse" className="px-3 py-2" />
                                     <TableHeader columnKey="contactTel" label="TEL" className="px-3 py-2" />
@@ -291,6 +291,9 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
                                         </td>
                                         <td className="px-3 py-2">{trial.studyDrug}</td>
                                         <td className="px-3 py-2 text-muted-foreground">{trial.controlArm || "-"}</td>
+                                        <td className="px-3 py-2 text-[11px] text-muted-foreground">
+                                            <p className="line-clamp-4 leading-normal">{trial.inclusionCriteriaSimple || "-"}</p>
+                                        </td>
                                         <td className="px-3 py-2">
                                             <div className="flex flex-wrap gap-1">
                                                 {trial.tags?.map(tag => (
@@ -300,9 +303,6 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
                                                     </span>
                                                 ))}
                                             </div>
-                                        </td>
-                                        <td className="px-3 py-2 text-[11px] text-muted-foreground">
-                                            <p className="line-clamp-4 leading-normal">{trial.inclusionCriteriaSimple || "-"}</p>
                                         </td>
                                         <td className="px-3 py-2 whitespace-nowrap">{trial.pi}</td>
                                         <td className="px-3 py-2 whitespace-nowrap">{trial.studyNurse || "-"}</td>
