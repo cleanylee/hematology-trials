@@ -20,6 +20,8 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
     const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
     const [selectedCategory, setSelectedCategory] = useState<DiseaseCategory | 'All'>('All');
     const [selectedStatus, setSelectedStatus] = useState<TrialStatus | 'All'>('Recruiting'); // Default active trials
+    const [selectedPi, setSelectedPi] = useState<string | 'All'>('All');
+    const [selectedSn, setSelectedSn] = useState<string | 'All'>('All');
     const [searchQuery, setSearchQuery] = useState("");
     const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'trialName', direction: 'asc' });
 
@@ -27,6 +29,8 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
         return trials.filter((trial) => {
             const matchesCategory = selectedCategory === 'All' || trial.diseaseCategory === selectedCategory;
             const matchesStatus = selectedStatus === 'All' || trial.status === selectedStatus;
+            const matchesPi = selectedPi === 'All' || trial.pi === selectedPi;
+            const matchesSn = selectedSn === 'All' || trial.studyNurse === selectedSn;
             const matchesSearch =
                 trial.trialName.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 trial.studyDrug.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -35,9 +39,9 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
                 trial.sponsor?.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 trial.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
 
-            return matchesCategory && matchesSearch && matchesStatus;
+            return matchesCategory && matchesSearch && matchesStatus && matchesPi && matchesSn;
         });
-    }, [trials, selectedCategory, selectedStatus, searchQuery]);
+    }, [trials, selectedCategory, selectedStatus, selectedPi, selectedSn, searchQuery]);
 
     const sortedTrials = useMemo(() => {
         const sorted = [...filteredTrials];
@@ -70,6 +74,16 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
         });
         return sorted;
     }, [filteredTrials, sortConfig]);
+
+    const pis = useMemo(() => {
+        const uniquePis = new Set(trials.map(t => t.pi).filter(Boolean));
+        return Array.from(uniquePis).sort();
+    }, [trials]);
+
+    const studyNurses = useMemo(() => {
+        const uniqueNurses = new Set(trials.map(t => t.studyNurse).filter(Boolean));
+        return Array.from(uniqueNurses).sort();
+    }, [trials]);
 
     const handleSort = (key: SortKey) => {
         setSortConfig((current) => ({
@@ -156,6 +170,30 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
                             <option key={s} value={s}>{s}</option>
                         ))}
                     </select>
+
+                    {/* PI Filter */}
+                    <select
+                        className="h-9 w-full md:w-auto rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                        value={selectedPi}
+                        onChange={(e) => setSelectedPi(e.target.value)}
+                    >
+                        <option value="All">All PIs</option>
+                        {pis.map((pi) => (
+                            <option key={pi} value={pi}>{pi}</option>
+                        ))}
+                    </select>
+
+                    {/* Study Nurse Filter */}
+                    <select
+                        className="h-9 w-full md:w-auto rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                        value={selectedSn}
+                        onChange={(e) => setSelectedSn(e.target.value)}
+                    >
+                        <option value="All">All Study Nurses</option>
+                        {studyNurses.map((sn) => (
+                            <option key={sn} value={sn}>{sn}</option>
+                        ))}
+                    </select>
                 </div>
 
                 {/* View Toggles */}
@@ -180,11 +218,13 @@ export function TrialsDashboardClient({ trials }: TrialsDashboardClientProps) {
             {/* Results Info */}
             <div className="flex items-center justify-between text-sm text-muted-foreground px-1">
                 <p>Showing {filteredTrials.length} trials</p>
-                {(selectedCategory !== 'All' || selectedStatus !== 'All' || searchQuery) && (
+                {(selectedCategory !== 'All' || selectedStatus !== 'All' || selectedPi !== 'All' || selectedSn !== 'All' || searchQuery) && (
                     <button
                         onClick={() => {
                             setSelectedCategory('All');
                             setSelectedStatus('Recruiting');
+                            setSelectedPi('All');
+                            setSelectedSn('All');
                             setSearchQuery('');
                         }}
                         className="text-primary hover:underline"

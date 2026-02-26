@@ -73,7 +73,11 @@ export function TrialCard({ trial }: TrialCardProps) {
                     {trial.inclusionCriteriaSimple && (
                         <div className="mt-3 pt-3 border-t">
                             <span className="text-xs font-semibold text-foreground uppercase tracking-wider block mb-1">Key Inclusion</span>
-                            <p className="line-clamp-3 text-xs leading-relaxed">{trial.inclusionCriteriaSimple}</p>
+                            <p className="text-xs leading-relaxed">
+                                {trial.inclusionCriteriaSimple.length > 250 
+                                    ? trial.inclusionCriteriaSimple.slice(0, 250) + "..." 
+                                    : trial.inclusionCriteriaSimple}
+                            </p>
                         </div>
                     )}
                 </div>
