@@ -121,6 +121,17 @@ export function AdminTrialForm({ initialData, isEditing = false }: AdminTrialFor
                             className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                         />
                     </div>
+                    <div className="space-y-2 md:col-span-2">
+                        <label className="text-sm font-medium">Full Trial Title (ClinicalTrials.gov)</label>
+                        <textarea
+                            name="fullTitle"
+                            rows={2}
+                            value={formData.fullTitle || ""}
+                            onChange={handleChange}
+                            placeholder="Extracting from ClinicalTrials.gov..."
+                            className="flex min-h-[60px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        />
+                    </div>
                     <div className="space-y-2">
                         <label className="text-sm font-medium">Clinical Trial Number</label>
                         <input

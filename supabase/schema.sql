@@ -36,6 +36,7 @@ create table public.trials (
   disease_category disease_category not null,
   trial_name text not null,
   clinical_trial_number text not null, -- NCT Number
+  full_title text null, -- Full title from ClinicalTrials.gov
   
   study_drug text not null,
   mechanism_of_action text null, -- New column

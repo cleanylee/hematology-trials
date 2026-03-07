@@ -23,6 +23,7 @@ export interface Trial {
     diseaseCategory: DiseaseCategory;
     trialName: string;
     clinicalTrialNumber: string; // clinicaltrial.gov ID
+    fullTitle?: string;
     studyDrug: string; // Name and mechanism
     mechanismOfAction: string;
     studyDesign: string; // RCT, Single arm, etc.

@@ -61,6 +61,11 @@ export default async function TrialPage({
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight">{trial.trialName}</h1>
+                    {trial.fullTitle && (
+                        <p className="text-lg text-muted-foreground mt-2 leading-relaxed">
+                            {trial.fullTitle}
+                        </p>
+                    )}
                     <div className="flex flex-wrap gap-2 mt-2 items-center text-sm text-muted-foreground">
                         <span className="font-semibold text-primary">{trial.diseaseCategory}</span>
                         <span>•</span>
