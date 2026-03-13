@@ -1,6 +1,7 @@
 import { getTrial } from '@/lib/actions'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Metadata, ResolvingMetadata } from 'next'
 import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, Edit } from 'lucide-react'
@@ -20,6 +21,30 @@ const getStatusColor = (status: string) => {
 }
 
 export const dynamic = 'force-dynamic'
+
+export async function generateMetadata(
+    { params }: { params: { id: string } },
+    parent: ResolvingMetadata
+): Promise<Metadata> {
+    const { id } = await params
+    const trial = await getTrial(id)
+
+    if (!trial) {
+        return {
+            title: 'Trial Not Found',
+            description: 'The requested clinical trial could not be found.',
+        }
+    }
+
+    return {
+        title: `${trial.trialName} | ${trial.studyDrug}`,
+        description: `Phase ${trial.diseaseCategory} clinical trial: ${trial.studyDrug}. ${trial.inclusionCriteriaSimple?.slice(0, 150)}...`,
+        openGraph: {
+            title: trial.trialName,
+            description: trial.studyDrug ? `Study Drug: ${trial.studyDrug}` : `Clinical trial for ${trial.diseaseCategory}`,
+        },
+    }
+}
 
 export default async function TrialPage({
     params,

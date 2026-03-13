@@ -5,8 +5,20 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Hematology Clinical Trials - NCKUH",
-    description: "Dashboard for hematology clinical trials at NCKUH",
+    title: {
+        default: "Hematology Clinical Trials - NCKUH",
+        template: "%s | NCKUH Hematology Trials"
+    },
+    description: "Search and browse active hematology clinical trials at National Cheng Kung University Hospital (NCKUH). Find trial requirements, status, and contact information.",
+    keywords: ["hematology", "clinical trials", "NCKUH", "blood cancer", "leukemia", "lymphoma", "myeloma", "Taiwan"],
+    openGraph: {
+        title: "Hematology Clinical Trials - NCKUH",
+        description: "Dashboard for active hematology clinical trials at National Cheng Kung University Hospital.",
+        url: "https://hematology-trials.nckuh.org.tw", // Replace with your actual deployed URL
+        siteName: "NCKUH Hematology Trials",
+        locale: "en_US",
+        type: "website",
+    },
 };
 
 export default function RootLayout({
