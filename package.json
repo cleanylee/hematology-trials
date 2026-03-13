@@ -24,7 +24,7 @@
     "react-dom": "^19.2.4",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
-    "@next/third-parties": "^14.2.14"
+    "@next/third-parties": "latest"
   },
   "devDependencies": {
     "@types/node": "^20",
