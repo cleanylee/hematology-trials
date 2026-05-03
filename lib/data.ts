@@ -29,6 +29,7 @@ export interface Trial {
     mechanismZh?: string;
     eligibilityZh?: string;
     studyDrug: string; // Name and mechanism
+    studyDrugZh?: string;
     mechanismOfAction: string;
     studyDesign: string; // RCT, Single arm, etc.
     controlArm: string;

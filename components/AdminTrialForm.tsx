@@ -216,6 +216,20 @@ export function AdminTrialForm({ initialData, isEditing = false }: AdminTrialFor
                         />
                     </div>
                     <div className="space-y-2">
+                        <label className="text-sm font-medium">
+                            試驗藥品中文名 (病患版) / Study Drug (Chinese)
+                            <span className="ml-2 text-xs font-normal text-muted-foreground">選填，無則沿用英文</span>
+                        </label>
+                        <input
+                            type="text"
+                            name="studyDrugZh"
+                            value={formData.studyDrugZh || ""}
+                            onChange={handleChange}
+                            placeholder="例：達雷妥尤單抗、伊布替尼"
+                            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        />
+                    </div>
+                    <div className="space-y-2">
                         <label className="text-sm font-medium">Sponsor</label>
                         <input
                             type="text"

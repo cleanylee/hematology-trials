@@ -18,9 +18,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }
     })
 
-    // Patient-facing pages: only currently relevant trials
+    // Patient-facing pages: only trials actively recruiting
     const patientTrialUrls = trials
-        .filter(t => t.status === 'Recruiting' || t.status === 'Active, not recruiting')
+        .filter(t => t.status === 'Recruiting')
         .map(trial => ({
             url: `${baseUrl}/patients/${trial.id}`,
             lastModified: new Date(trial.lastUpdated),

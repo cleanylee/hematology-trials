@@ -23,6 +23,7 @@ export interface Database {
                     mechanism_zh: string | null
                     eligibility_zh: string | null
                     study_drug: string
+                    study_drug_zh: string | null
                     mechanism_of_action: string | null
                     study_design: string | null
                     control_arm: string | null
@@ -53,6 +54,7 @@ export interface Database {
                     mechanism_zh?: string | null
                     eligibility_zh?: string | null
                     study_drug: string
+                    study_drug_zh?: string | null
                     mechanism_of_action?: string | null
                     study_design?: string | null
                     control_arm?: string | null
@@ -83,6 +85,7 @@ export interface Database {
                     mechanism_zh?: string | null
                     eligibility_zh?: string | null
                     study_drug?: string
+                    study_drug_zh?: string | null
                     mechanism_of_action?: string | null
                     study_design?: string | null
                     control_arm?: string | null

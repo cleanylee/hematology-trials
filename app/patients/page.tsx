@@ -9,13 +9,13 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
     title: "病患資訊｜成大醫院血液科臨床試驗",
     description:
-        "成大醫院血液腫瘤科目前招募中的臨床試驗。提供病患與家屬參考：包含試驗中文名稱、試驗藥品、合適參加的病人條件，以及諮詢方式。涵蓋白血病、淋巴瘤、多發性骨髓瘤、骨髓增生疾病等。",
+        "成大醫院血液科目前招募中的臨床試驗。提供病患與家屬參考：包含試驗中文名稱、試驗藥品、合適參加的病人條件，以及諮詢方式。涵蓋白血病、淋巴瘤、多發性骨髓瘤、骨髓增生疾病等。",
     alternates: {
         canonical: "/patients",
     },
     openGraph: {
         title: "病患資訊｜成大醫院血液科臨床試驗",
-        description: "成大醫院血液腫瘤科目前招募中的臨床試驗 — 病患與家屬版資訊",
+        description: "成大醫院血液科目前招募中的臨床試驗 — 病患與家屬版資訊",
         url: "/patients",
         type: "website",
     },
@@ -25,10 +25,8 @@ const CONSULT_URL = "https://dr.hosp.ncku.edu.tw/p/412-1087-29872.php?Lang=zh-tw
 
 export default async function PatientsPage() {
     const allTrials = await getTrials();
-    // Patient view: only currently relevant trials
-    const trials = allTrials.filter(
-        t => t.status === "Recruiting" || t.status === "Active, not recruiting"
-    );
+    // Patient view: only trials actively recruiting new participants
+    const trials = allTrials.filter(t => t.status === "Recruiting");
 
     return (
         <main className="min-h-screen bg-background">
@@ -46,7 +44,7 @@ export default async function PatientsPage() {
                         </div>
                     </div>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                        本頁列出本院血液腫瘤科目前 <strong>招募中</strong> 或仍可諮詢的臨床試驗。
+                        本頁列出本院血液科目前 <strong>招募中</strong> 的臨床試驗。
                         若您或家屬罹患下列疾病、且對某項試驗有興趣，請至
                         <a
                             href={CONSULT_URL}
@@ -66,7 +64,7 @@ export default async function PatientsPage() {
             </div>
 
             <div className="border-t bg-muted/30 mt-12">
-                <div className="container py-6 max-w-4xl mx-auto">
+                <div className="container py-6 max-w-4xl mx-auto space-y-4">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                         <div className="p-2 bg-primary/10 rounded-lg">
                             <Phone className="h-5 w-5 text-primary" />
@@ -86,6 +84,9 @@ export default async function PatientsPage() {
                             門診時間查詢
                         </a>
                     </div>
+                    <p className="text-xs text-muted-foreground border-t pt-3">
+                        ⚠️ 部份翻譯資訊由 AI 提供，所有臨床試驗資訊以最新版試驗計畫書為準。
+                    </p>
                 </div>
             </div>
         </main>

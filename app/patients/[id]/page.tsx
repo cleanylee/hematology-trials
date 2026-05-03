@@ -112,11 +112,18 @@ export default async function PatientTrialPage({
                         <CardTitle className="text-lg">試驗藥品</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-2">
-                        <p className="font-medium">{trial.studyDrug || "—"}</p>
+                        {trial.studyDrugZh ? (
+                            <>
+                                <p className="font-medium">{trial.studyDrugZh}</p>
+                                <p className="text-xs text-muted-foreground">{trial.studyDrug}</p>
+                            </>
+                        ) : (
+                            <p className="font-medium">{trial.studyDrug || "—"}</p>
+                        )}
                         {trial.mechanismZh ? (
-                            <p className="text-sm text-muted-foreground leading-relaxed">{trial.mechanismZh}</p>
+                            <p className="text-sm text-muted-foreground leading-relaxed pt-2">{trial.mechanismZh}</p>
                         ) : trial.mechanismOfAction ? (
-                            <p className="text-sm text-muted-foreground leading-relaxed">
+                            <p className="text-sm text-muted-foreground leading-relaxed pt-2">
                                 作用機轉：{trial.mechanismOfAction}
                             </p>
                         ) : null}
@@ -173,6 +180,10 @@ export default async function PatientTrialPage({
                         </div>
                     </CardContent>
                 </Card>
+
+                <p className="text-xs text-muted-foreground text-center pt-4 border-t">
+                    ⚠️ 部份翻譯資訊由 AI 提供，所有臨床試驗資訊以最新版試驗計畫書為準。
+                </p>
             </div>
         </main>
     );

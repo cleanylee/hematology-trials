@@ -12,9 +12,9 @@ export const metadata: Metadata = {
         default: "成大醫院血液科臨床試驗 | NCKUH Hematology Clinical Trials",
         template: "%s | NCKUH Hematology Trials"
     },
-    description: "成大醫院血液腫瘤科現行臨床試驗一覽:涵蓋白血病、淋巴瘤、骨髓瘤、骨髓增生疾病等。Active hematology clinical trials at National Cheng Kung University Hospital (NCKUH) — leukemia, lymphoma, myeloma, MPN. Find eligibility, status, and contact information.",
+    description: "成大醫院血液科現行臨床試驗一覽:涵蓋白血病、淋巴瘤、骨髓瘤、骨髓增生疾病等。Active hematology clinical trials at National Cheng Kung University Hospital (NCKUH) — leukemia, lymphoma, myeloma, MPN. Find eligibility, status, and contact information.",
     keywords: [
-        "成大醫院", "血液科", "血液腫瘤科", "臨床試驗", "NCKUH",
+        "成大醫院", "血液科", "臨床試驗", "NCKUH",
         "hematology", "clinical trials", "Taiwan",
         "leukemia", "lymphoma", "myeloma", "MDS", "MPN", "CLL", "AML", "CAR-T",
         "白血病", "淋巴瘤", "骨髓瘤"

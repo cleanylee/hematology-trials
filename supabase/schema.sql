@@ -43,6 +43,7 @@ create table public.trials (
   eligibility_zh text null, -- Patient-friendly Chinese eligibility, one bullet per line
 
   study_drug text not null,
+  study_drug_zh text null, -- Chinese drug name / brief description (patient-facing)
   mechanism_of_action text null, -- New column
   study_design text null,
   control_arm text null,

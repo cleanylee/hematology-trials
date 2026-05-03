@@ -56,7 +56,14 @@ export function PatientTrialCard({ trial }: { trial: Trial }) {
                 {(trial.studyDrug || trial.mechanismZh) && (
                     <div className="text-sm">
                         <span className="font-semibold text-primary">試驗藥品：</span>
-                        <span>{trial.studyDrug}</span>
+                        {trial.studyDrugZh ? (
+                            <>
+                                <span>{trial.studyDrugZh}</span>
+                                <span className="text-xs text-muted-foreground ml-1">({trial.studyDrug})</span>
+                            </>
+                        ) : (
+                            <span>{trial.studyDrug}</span>
+                        )}
                         {trial.mechanismZh && (
                             <p className="text-muted-foreground mt-1">{trial.mechanismZh}</p>
                         )}
