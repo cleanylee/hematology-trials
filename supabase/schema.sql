@@ -39,6 +39,8 @@ create table public.trials (
   full_title text null, -- Full title from ClinicalTrials.gov
   chinese_full_title text null, -- Chinese full trial title (e.g. NCKUH IRB version)
   irb_approval_number text null, -- NCKUH IRB approval number
+  mechanism_zh text null, -- Patient-friendly Chinese mechanism (used on /patients)
+  eligibility_zh text null, -- Patient-friendly Chinese eligibility, one bullet per line
 
   study_drug text not null,
   mechanism_of_action text null, -- New column

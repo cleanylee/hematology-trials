@@ -20,6 +20,8 @@ export interface Database {
                     full_title: string | null
                     chinese_full_title: string | null
                     irb_approval_number: string | null
+                    mechanism_zh: string | null
+                    eligibility_zh: string | null
                     study_drug: string
                     mechanism_of_action: string | null
                     study_design: string | null
@@ -48,6 +50,8 @@ export interface Database {
                     full_title?: string | null
                     chinese_full_title?: string | null
                     irb_approval_number?: string | null
+                    mechanism_zh?: string | null
+                    eligibility_zh?: string | null
                     study_drug: string
                     mechanism_of_action?: string | null
                     study_design?: string | null
@@ -76,6 +80,8 @@ export interface Database {
                     full_title?: string | null
                     chinese_full_title?: string | null
                     irb_approval_number?: string | null
+                    mechanism_zh?: string | null
+                    eligibility_zh?: string | null
                     study_drug?: string
                     mechanism_of_action?: string | null
                     study_design?: string | null

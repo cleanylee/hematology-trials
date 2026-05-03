@@ -26,6 +26,8 @@ export interface Trial {
     fullTitle?: string;
     chineseFullTitle?: string;
     irbApprovalNumber?: string;
+    mechanismZh?: string;
+    eligibilityZh?: string;
     studyDrug: string; // Name and mechanism
     mechanismOfAction: string;
     studyDesign: string; // RCT, Single arm, etc.

@@ -176,6 +176,34 @@ export function AdminTrialForm({ initialData, isEditing = false }: AdminTrialFor
                             className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                         />
                     </div>
+                    <div className="space-y-2 md:col-span-2">
+                        <label className="text-sm font-medium">
+                            中文機轉 (病患版) / Mechanism (Chinese, patient-facing)
+                            <span className="ml-2 text-xs font-normal text-amber-600">AI 初譯，請審閱修飾</span>
+                        </label>
+                        <textarea
+                            name="mechanismZh"
+                            rows={2}
+                            value={formData.mechanismZh || ""}
+                            onChange={handleChange}
+                            placeholder="例：FLT3 酪胺酸激酶抑制劑 — 阻斷急性骨髓性白血病細胞的生長訊號。"
+                            className="flex min-h-[60px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        />
+                    </div>
+                    <div className="space-y-2 md:col-span-2">
+                        <label className="text-sm font-medium">
+                            合適參加病人 (病患版) / Eligibility (Chinese, patient-facing)
+                            <span className="ml-2 text-xs font-normal text-amber-600">AI 初譯，請審閱修飾。每行一個重點，可用「• 」開頭</span>
+                        </label>
+                        <textarea
+                            name="eligibilityZh"
+                            rows={5}
+                            value={formData.eligibilityZh || ""}
+                            onChange={handleChange}
+                            placeholder="• 18 歲以上成人&#10;• 新診斷急性骨髓性白血病&#10;• FLT3-ITD 陰性"
+                            className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        />
+                    </div>
                     <div className="space-y-2">
                         <label className="text-sm font-medium">Study Drug</label>
                         <input
