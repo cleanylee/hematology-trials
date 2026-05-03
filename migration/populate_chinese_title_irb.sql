@@ -31,8 +31,7 @@ update public.trials set chinese_full_title = '一項隨機分配、開放性、
 -- MK3543-007  →  AB-CR-113-054  (PI: 陳彩雲)
 update public.trials set chinese_full_title = '一項第3期、隨機分配、雙盲、活性對照藥物對照之臨床試驗，針對未曾接受細胞減量療法的原發性血小板增多症受試者，評估Bomedemstat（MK-3543）相較於羥基尿素的療效與安全性。', irb_approval_number = 'AB-CR-113-054', updated_at = now() where id = '0437c73e-550b-4600-9201-fb9af38af7fc';
 
--- IM048-022
-(EXCALIBER-Maint))  →  AB-CR-112-038  (PI: 陳彩雲)
+-- IM048-022 (EXCALIBER-Maint)  →  AB-CR-112-038  (PI: 陳彩雲)
 update public.trials set chinese_full_title = '一項第 3 期、兩階段、隨機分配、多中心、對照、開放性試驗，在接受自體幹細胞移植 (ASCT) 後的新診斷出多發性骨髓瘤 (NDMM) 參與者中，Iberdomide 維持療法與 Lenalidomide 維持療法之比較', irb_approval_number = 'AB-CR-112-038', updated_at = now() where id = 'bccc6cfd-8c35-48b4-b7cf-bcddf18111cb';
 
 -- AC220-168 (QuANTUM-WILD)  →  AB-CR-113-088  (PI: 陳彩雲)
