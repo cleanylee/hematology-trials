@@ -97,13 +97,25 @@ export default async function TrialPage({
     }
 
     // JSON-LD structured data for the trial — helps Google show rich results for medical studies
+    const identifiers: Array<string | { '@type': string; propertyID: string; value: string }> = [
+        trial.clinicalTrialNumber,
+    ]
+    if (trial.irbApprovalNumber) {
+        identifiers.push({
+            '@type': 'PropertyValue',
+            propertyID: 'NCKUH IRB',
+            value: trial.irbApprovalNumber,
+        })
+    }
+
     const jsonLd = {
         '@context': 'https://schema.org',
         '@type': 'MedicalStudy',
         name: trial.trialName,
+        alternateName: trial.chineseFullTitle || undefined,
         description: trial.fullTitle || trial.studyDrug,
         url: `https://trials.hematology.tw/trials/${id}`,
-        identifier: trial.clinicalTrialNumber,
+        identifier: identifiers.length > 1 ? identifiers : trial.clinicalTrialNumber,
         studySubject: {
             '@type': 'MedicalCondition',
             name: trial.diseaseCategory,
@@ -190,10 +202,21 @@ export default async function TrialPage({
                                 {trial.fullTitle}
                             </p>
                         )}
+                        {trial.chineseFullTitle && (
+                            <p className="text-base text-muted-foreground mt-2 leading-relaxed">
+                                {trial.chineseFullTitle}
+                            </p>
+                        )}
                         <div className="flex flex-wrap gap-2 mt-2 items-center text-sm text-muted-foreground">
                             <span className="font-semibold text-primary">{trial.diseaseCategory}</span>
                             <span>•</span>
                             <span>{trial.clinicalTrialNumber}</span>
+                            {trial.irbApprovalNumber && (
+                                <>
+                                    <span>•</span>
+                                    <span>IRB: {trial.irbApprovalNumber}</span>
+                                </>
+                            )}
                             <span>•</span>
                             <span>Last updated: {new Date(trial.lastUpdated).toLocaleDateString()}</span>
                         </div>

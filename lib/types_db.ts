@@ -18,6 +18,8 @@ export interface Database {
                     trial_name: string
                     clinical_trial_number: string
                     full_title: string | null
+                    chinese_full_title: string | null
+                    irb_approval_number: string | null
                     study_drug: string
                     mechanism_of_action: string | null
                     study_design: string | null
@@ -44,6 +46,8 @@ export interface Database {
                     trial_name: string
                     clinical_trial_number: string
                     full_title?: string | null
+                    chinese_full_title?: string | null
+                    irb_approval_number?: string | null
                     study_drug: string
                     mechanism_of_action?: string | null
                     study_design?: string | null
@@ -70,6 +74,8 @@ export interface Database {
                     trial_name?: string
                     clinical_trial_number?: string
                     full_title?: string | null
+                    chinese_full_title?: string | null
+                    irb_approval_number?: string | null
                     study_drug?: string
                     mechanism_of_action?: string | null
                     study_design?: string | null

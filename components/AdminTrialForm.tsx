@@ -132,6 +132,17 @@ export function AdminTrialForm({ initialData, isEditing = false }: AdminTrialFor
                             className="flex min-h-[60px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                         />
                     </div>
+                    <div className="space-y-2 md:col-span-2">
+                        <label className="text-sm font-medium">中文試驗全名 / Chinese Full Title</label>
+                        <textarea
+                            name="chineseFullTitle"
+                            rows={2}
+                            value={formData.chineseFullTitle || ""}
+                            onChange={handleChange}
+                            placeholder="例：一項第3期、隨機分配、雙盲試驗…"
+                            className="flex min-h-[60px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        />
+                    </div>
                     <div className="space-y-2">
                         <label className="text-sm font-medium">Clinical Trial Number</label>
                         <input
@@ -140,6 +151,17 @@ export function AdminTrialForm({ initialData, isEditing = false }: AdminTrialFor
                             value={formData.clinicalTrialNumber || ""}
                             onChange={handleChange}
                             placeholder="NCT..."
+                            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        />
+                    </div>
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium">IRB 核准編號 / IRB Approval Number</label>
+                        <input
+                            type="text"
+                            name="irbApprovalNumber"
+                            value={formData.irbApprovalNumber || ""}
+                            onChange={handleChange}
+                            placeholder="例：AB-CR-114-052"
                             className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                         />
                     </div>
