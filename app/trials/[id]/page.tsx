@@ -2,10 +2,10 @@ import { getTrial } from '@/lib/actions'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Metadata, ResolvingMetadata } from 'next'
-import { notFound, redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, Edit } from 'lucide-react'
-import { createClient } from '@/lib/supabase/server'
+import { ArrowLeft } from 'lucide-react'
+import { EditTrialButton } from '@/components/EditTrialButton'
 
 // Map status to badge color variants
 const getStatusColor = (status: string) => {
@@ -20,7 +20,9 @@ const getStatusColor = (status: string) => {
     }
 }
 
-export const dynamic = 'force-dynamic'
+// Trial pages are statically generated on demand and revalidated hourly.
+// updateTrial() calls revalidatePath(`/trials/${id}`) for immediate refresh on edit.
+export const revalidate = 3600
 
 export async function generateMetadata(
     { params }: { params: Promise<{ id: string }> },
@@ -81,9 +83,6 @@ export default async function TrialPage({
     if (!trial) {
         return notFound()
     }
-
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
 
     // Map internal status to schema.org MedicalStudyStatus
     // https://schema.org/MedicalStudyStatus
@@ -183,15 +182,7 @@ export default async function TrialPage({
                         Back to Dashboard
                     </Link>
 
-                    {user && (
-                        <Link
-                            href={`/admin/trials/${id}/edit`}
-                            className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-4"
-                        >
-                            <Edit className="mr-2 h-4 w-4" />
-                            Edit Trial
-                        </Link>
-                    )}
+                    <EditTrialButton id={id} />
                 </div>
 
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">

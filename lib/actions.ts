@@ -158,6 +158,7 @@ export async function updateTrial(id: string, formData: FormData) {
 
     revalidatePath('/')
     revalidatePath('/admin')
+    revalidatePath(`/trials/${id}`)
     redirect('/admin')
 }
 
