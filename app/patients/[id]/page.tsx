@@ -1,6 +1,7 @@
 import { getTrial } from "@/lib/actions";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { AudienceSwitch } from "@/components/AudienceSwitch";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -76,13 +77,16 @@ export default async function PatientTrialPage({
     return (
         <main className="min-h-screen bg-background">
             <div className="container py-8 max-w-3xl mx-auto space-y-6">
-                <Link
-                    href="/patients"
-                    className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                >
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    返回試驗列表
-                </Link>
+                <div className="flex items-center justify-between">
+                    <Link
+                        href="/patients"
+                        className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                        <ArrowLeft className="mr-2 h-4 w-4" />
+                        返回試驗列表
+                    </Link>
+                    <AudienceSwitch target="hcp" />
+                </div>
 
                 <div>
                     <div className="flex flex-wrap items-center gap-2 mb-3">
@@ -95,6 +99,9 @@ export default async function PatientTrialPage({
                         {trial.chineseFullTitle || trial.fullTitle || trial.trialName}
                     </h1>
                     <div className="flex flex-wrap gap-x-4 gap-y-1 mt-3 text-sm text-muted-foreground">
+                        {trial.pi && trial.pi !== "Unknown" && (
+                            <span>主持醫師：<strong className="text-foreground">{trial.pi} 醫師</strong></span>
+                        )}
                         {trial.irbApprovalNumber && <span>IRB 編號：{trial.irbApprovalNumber}</span>}
                         {trial.clinicalTrialNumber && trial.clinicalTrialNumber !== "Pending" && (
                             <span>NCT 編號：{trial.clinicalTrialNumber}</span>
@@ -166,7 +173,13 @@ export default async function PatientTrialPage({
                             <div className="flex-1">
                                 <h3 className="font-semibold mb-1">想了解是否合適參加？</h3>
                                 <p className="text-sm text-muted-foreground mb-4">
-                                    請至成大醫院血液科醫師門診諮詢。醫師會根據您的病史與檢查資料，評估您是否合適參加此試驗。
+                                    請至成大醫院血液科醫師門診諮詢
+                                    {trial.pi && trial.pi !== "Unknown" && (
+                                        <>
+                                            （建議掛號 <strong className="text-foreground">{trial.pi} 醫師</strong>）
+                                        </>
+                                    )}
+                                    。醫師會根據您的病史與檢查資料，評估您是否合適參加此試驗。
                                 </p>
                                 <a
                                     href={CONSULT_URL}

@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { GoogleAnalytics } from '@next/third-parties/google';
+import { AudienceGate } from "@/components/AudienceGate";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -56,6 +57,7 @@ export default function RootLayout({
     return (
         <html lang="zh-Hant">
             <body className={inter.className}>
+                <AudienceGate />
                 <div className="flex min-h-screen flex-col">
                     <div className="flex-1">{children}</div>
                     <footer className="border-t py-6 md:py-0">

@@ -1,5 +1,6 @@
 import { getTrials } from "@/lib/actions";
 import { PatientTrialsClient } from "@/components/PatientTrialsClient";
+import { AudienceSwitch } from "@/components/AudienceSwitch";
 import { HeartPulse, Phone } from "lucide-react";
 import Link from "next/link";
 import { Metadata } from "next";
@@ -32,16 +33,19 @@ export default async function PatientsPage() {
         <main className="min-h-screen bg-background">
             <div className="border-b bg-card">
                 <div className="container py-6 md:py-8 max-w-4xl mx-auto">
-                    <div className="flex items-center gap-3 mb-3">
-                        <div className="p-2 bg-primary/10 rounded-lg">
-                            <HeartPulse className="h-7 w-7 text-primary" />
+                    <div className="flex items-start justify-between gap-3 mb-3">
+                        <div className="flex items-center gap-3">
+                            <div className="p-2 bg-primary/10 rounded-lg">
+                                <HeartPulse className="h-7 w-7 text-primary" />
+                            </div>
+                            <div>
+                                <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
+                                    成大醫院血液科臨床試驗
+                                </h1>
+                                <p className="text-muted-foreground text-base">病患與家屬資訊</p>
+                            </div>
                         </div>
-                        <div>
-                            <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
-                                成大醫院血液科臨床試驗
-                            </h1>
-                            <p className="text-muted-foreground text-base">病患與家屬資訊</p>
-                        </div>
+                        <AudienceSwitch target="hcp" />
                     </div>
                     <p className="text-sm text-muted-foreground leading-relaxed">
                         本頁列出本院血液科目前 <strong>招募中</strong> 的臨床試驗。

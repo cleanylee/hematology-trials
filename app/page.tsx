@@ -1,5 +1,6 @@
 import { getTrials } from '@/lib/actions'
 import { TrialsDashboardClient } from '@/components/TrialsDashboardClient'
+import { AudienceSwitch } from '@/components/AudienceSwitch'
 import { Microscope } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
@@ -47,7 +48,7 @@ export default async function Home() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
             />
             <div className="border-b bg-card">
-                <div className="container py-4 md:py-6 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-4">
+                <div className="container py-4 md:py-6 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-4 md:justify-between">
                     <div className="flex items-center gap-3">
                         <div className="p-2 bg-primary/10 rounded-lg">
                             <Microscope className="h-8 w-8 text-primary" />
@@ -61,6 +62,7 @@ export default async function Home() {
                             </span>
                         </div>
                     </div>
+                    <AudienceSwitch target="public" />
                 </div>
             </div>
 

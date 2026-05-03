@@ -40,6 +40,9 @@ export function PatientTrialCard({ trial }: { trial: Trial }) {
                     {trial.irbApprovalNumber && (
                         <span className="text-xs text-muted-foreground">IRB: {trial.irbApprovalNumber}</span>
                     )}
+                    {trial.pi && trial.pi !== "Unknown" && (
+                        <span className="text-xs text-muted-foreground">主持醫師：{trial.pi}</span>
+                    )}
                 </div>
 
                 <div>
