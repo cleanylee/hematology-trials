@@ -4,11 +4,48 @@ import { Microscope } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
 
+const siteUrl = 'https://trials.hematology.tw'
+
+const websiteJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'NCKUH Hematology Clinical Trials',
+    alternateName: '成大醫院血液科臨床試驗',
+    url: siteUrl,
+    inLanguage: ['zh-Hant', 'en'],
+    publisher: { '@id': `${siteUrl}/#organization` },
+}
+
+const organizationJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Hospital',
+    '@id': `${siteUrl}/#organization`,
+    name: 'National Cheng Kung University Hospital — Division of Hematology',
+    alternateName: '國立成功大學醫學院附設醫院 血液科',
+    url: siteUrl,
+    medicalSpecialty: 'Hematologic',
+    address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'No. 138, Shengli Rd., North Dist.',
+        addressLocality: 'Tainan',
+        postalCode: '704',
+        addressCountry: 'TW',
+    },
+}
+
 export default async function Home() {
     const trials = await getTrials()
 
     return (
         <main className="min-h-screen bg-background">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+            />
             <div className="border-b bg-card">
                 <div className="container py-4 md:py-6 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-4">
                     <div className="flex items-center gap-3">

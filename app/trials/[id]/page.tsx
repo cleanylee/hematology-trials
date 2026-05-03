@@ -127,11 +127,39 @@ export default async function TrialPage({
         healthCondition: trial.diseaseCategory,
     }
 
+    const breadcrumbJsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'NCKUH Hematology Trials',
+                item: 'https://trials.hematology.tw',
+            },
+            {
+                '@type': 'ListItem',
+                position: 2,
+                name: trial.diseaseCategory,
+            },
+            {
+                '@type': 'ListItem',
+                position: 3,
+                name: trial.trialName,
+                item: `https://trials.hematology.tw/trials/${id}`,
+            },
+        ],
+    }
+
     return (
         <>
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
             />
             <div className="container py-8 space-y-6 max-w-4xl mx-auto">
                 <div className="flex items-center justify-between">
