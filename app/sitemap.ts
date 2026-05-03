@@ -2,23 +2,21 @@ import { MetadataRoute } from 'next'
 import { getTrials } from '@/lib/actions'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    // Replace with your actual domain when deploying
-    const baseUrl = 'https://hematology-trials.nckuh.org.tw'
+    const baseUrl = 'https://trials.hematology.tw'
 
-    // Get all trials to generate dynamic URLs
     const trials = await getTrials()
 
-    // Filter only active trials for the sitemap
-    const activeTrials = trials.filter(trial =>
-        ['Recruiting', 'Active, not recruiting', 'Pending Approval'].includes(trial.status)
-    )
-
-    const trialUrls = activeTrials.map((trial) => ({
-        url: `${baseUrl}/trials/${trial.id}`,
-        lastModified: new Date(trial.lastUpdated),
-        changeFrequency: 'weekly' as const,
-        priority: 0.8,
-    }))
+    // Include all trials in sitemap so users can find historical/completed trials too.
+    // Google will rank active ones higher via the priority field.
+    const trialUrls = trials.map((trial) => {
+        const isActive = ['Recruiting', 'Active, not recruiting', 'Pending Approval'].includes(trial.status)
+        return {
+            url: `${baseUrl}/trials/${trial.id}`,
+            lastModified: new Date(trial.lastUpdated),
+            changeFrequency: (isActive ? 'weekly' : 'monthly') as 'weekly' | 'monthly',
+            priority: isActive ? 0.8 : 0.5,
+        }
+    })
 
     return [
         {

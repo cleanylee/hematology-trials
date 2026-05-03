@@ -7,19 +7,44 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+    metadataBase: new URL("https://trials.hematology.tw"),
     title: {
-        default: "Hematology Clinical Trials - NCKUH",
+        default: "成大醫院血液科臨床試驗 | NCKUH Hematology Clinical Trials",
         template: "%s | NCKUH Hematology Trials"
     },
-    description: "Search and browse active hematology clinical trials at National Cheng Kung University Hospital (NCKUH). Find trial requirements, status, and contact information.",
-    keywords: ["hematology", "clinical trials", "NCKUH", "blood cancer", "leukemia", "lymphoma", "myeloma", "Taiwan"],
+    description: "成大醫院血液腫瘤科現行臨床試驗一覽:涵蓋白血病、淋巴瘤、骨髓瘤、骨髓增生疾病等。Active hematology clinical trials at National Cheng Kung University Hospital (NCKUH) — leukemia, lymphoma, myeloma, MPN. Find eligibility, status, and contact information.",
+    keywords: [
+        "成大醫院", "血液科", "血液腫瘤科", "臨床試驗", "NCKUH",
+        "hematology", "clinical trials", "Taiwan",
+        "leukemia", "lymphoma", "myeloma", "MDS", "MPN", "CLL", "AML", "CAR-T",
+        "白血病", "淋巴瘤", "骨髓瘤"
+    ],
+    alternates: {
+        canonical: "/",
+    },
     openGraph: {
-        title: "Hematology Clinical Trials - NCKUH",
+        title: "成大醫院血液科臨床試驗 | NCKUH Hematology Clinical Trials",
         description: "Dashboard for active hematology clinical trials at National Cheng Kung University Hospital.",
-        url: "https://hematology-trials.nckuh.org.tw", // Replace with your actual deployed URL
+        url: "https://trials.hematology.tw",
         siteName: "NCKUH Hematology Trials",
-        locale: "en_US",
+        locale: "zh_TW",
+        alternateLocale: ["en_US"],
         type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "成大醫院血液科臨床試驗 | NCKUH Hematology Clinical Trials",
+        description: "Active hematology clinical trials at National Cheng Kung University Hospital (NCKUH) — leukemia, lymphoma, myeloma, MPN.",
+    },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            "max-snippet": -1,
+            "max-image-preview": "large",
+        },
     },
 };
 
@@ -29,7 +54,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html lang="zh-Hant">
             <body className={inter.className}>
                 <div className="flex min-h-screen flex-col">
                     <div className="flex-1">{children}</div>

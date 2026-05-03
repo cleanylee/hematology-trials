@@ -1,15 +1,15 @@
 import { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
-    // Replace with your actual domain when deploying
-    const baseUrl = 'https://hematology-trials.nckuh.org.tw'
+    const baseUrl = 'https://trials.hematology.tw'
 
     return {
         rules: {
             userAgent: '*',
             allow: '/',
-            disallow: ['/admin/', '/login/'],
+            disallow: ['/admin/', '/login/', '/auth/'],
         },
         sitemap: `${baseUrl}/sitemap.xml`,
+        host: baseUrl,
     }
 }
