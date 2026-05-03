@@ -18,6 +18,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }
     })
 
+    // Patient-facing pages: only currently relevant trials
+    const patientTrialUrls = trials
+        .filter(t => t.status === 'Recruiting' || t.status === 'Active, not recruiting')
+        .map(trial => ({
+            url: `${baseUrl}/patients/${trial.id}`,
+            lastModified: new Date(trial.lastUpdated),
+            changeFrequency: 'weekly' as 'weekly',
+            priority: 0.7,
+        }))
+
     return [
         {
             url: baseUrl,
@@ -25,6 +35,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: 'daily',
             priority: 1,
         },
+        {
+            url: `${baseUrl}/patients`,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.9,
+        },
         ...trialUrls,
+        ...patientTrialUrls,
     ]
 }

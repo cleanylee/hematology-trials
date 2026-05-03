@@ -114,6 +114,7 @@ export async function createTrial(formData: FormData) {
 
     revalidatePath('/')
     revalidatePath('/admin')
+    revalidatePath('/patients')
     redirect('/admin')
 }
 
@@ -164,7 +165,9 @@ export async function updateTrial(id: string, formData: FormData) {
 
     revalidatePath('/')
     revalidatePath('/admin')
+    revalidatePath('/patients')
     revalidatePath(`/trials/${id}`)
+    revalidatePath(`/patients/${id}`)
     redirect('/admin')
 }
 
