@@ -60,10 +60,17 @@ export default function RootLayout({
                 <AudienceGate />
                 <div className="flex min-h-screen flex-col">
                     <div className="flex-1">{children}</div>
-                    <footer className="border-t py-6 md:py-0">
-                        <div className="container flex flex-col items-center justify-center gap-1 text-xs text-muted-foreground text-center py-4">
-                            <p>臨床試驗資訊以最新版本計畫書為準 Clinical trial information is subject to the latest version of the Protocol.</p>
-                            <p>系統設計 李欣學醫師 System designed by Sin-Syue Li</p>
+                    <footer className="border-t">
+                        <div className="container max-w-4xl mx-auto py-6 text-xs text-muted-foreground space-y-3 text-center">
+                            <div className="space-y-0.5">
+                                <p className="font-semibold text-foreground">國立成功大學醫學院附設醫院 內科部血液科</p>
+                                <p>地址：70403 台南市北區勝利路 138 號</p>
+                                <p>電話：06-235-3535 分機 4620</p>
+                            </div>
+                            <div className="border-t pt-3 space-y-0.5">
+                                <p>臨床試驗資訊以最新版本計畫書為準 Clinical trial information is subject to the latest version of the Protocol.</p>
+                                <p>系統設計 李欣學醫師 System designed by Sin-Syue Li</p>
+                            </div>
                         </div>
                     </footer>
                 </div>

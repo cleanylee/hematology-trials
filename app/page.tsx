@@ -22,14 +22,15 @@ const organizationJsonLd = {
     '@type': 'Hospital',
     '@id': `${siteUrl}/#organization`,
     name: 'National Cheng Kung University Hospital — Division of Hematology',
-    alternateName: '國立成功大學醫學院附設醫院 血液科',
+    alternateName: '國立成功大學醫學院附設醫院 內科部血液科',
     url: siteUrl,
     medicalSpecialty: 'Hematologic',
+    telephone: '+886-6-235-3535',
     address: {
         '@type': 'PostalAddress',
         streetAddress: 'No. 138, Shengli Rd., North Dist.',
         addressLocality: 'Tainan',
-        postalCode: '704',
+        postalCode: '70403',
         addressCountry: 'TW',
     },
 }
