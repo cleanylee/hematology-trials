@@ -182,19 +182,22 @@ function DiseaseLandingView({
 
                     <section className="space-y-4">
                         <h2 className="text-xl font-semibold border-b pb-2">
-                            目前招募中的臨床試驗
+                            本院進行中的相關試驗
                             <span className="ml-2 text-sm font-normal text-muted-foreground">
                                 ({recruiting.length} 項)
                             </span>
                         </h2>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                            如果您對 <strong className="text-foreground">{disease.nameZh}</strong> 的診斷或治療，
+                            或對下列本院進行中的試驗有任何疑問，歡迎至成大醫院血液科醫師門診諮詢評估。
+                        </p>
 
                         {recruiting.length === 0 ? (
                             <Card>
                                 <CardContent className="p-6 text-center space-y-3">
                                     <Microscope className="h-10 w-10 mx-auto text-muted-foreground/60" />
                                     <p className="text-muted-foreground">
-                                        {disease.noTrialsMessage ??
-                                            "目前成大醫院血液科尚無此類別之招募中試驗。如您對相關治療有疑問，仍歡迎至門診諮詢。"}
+                                        {disease.noTrialsMessage ?? "目前無此類別之進行中試驗。"}
                                     </p>
                                 </CardContent>
                             </Card>
