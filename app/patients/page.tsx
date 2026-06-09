@@ -1,7 +1,9 @@
 import { getTrials } from "@/lib/actions";
 import { PatientTrialsClient } from "@/components/PatientTrialsClient";
 import { AudienceSwitch } from "@/components/AudienceSwitch";
-import { HeartPulse, Phone } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { DISEASE_LANDINGS } from "@/lib/diseases";
+import { HeartPulse, Phone, ArrowRight, BookOpen } from "lucide-react";
 import Link from "next/link";
 import { Metadata } from "next";
 
@@ -10,10 +12,12 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
     title: "病患資訊｜成大醫院血液科臨床試驗",
     description:
-        "成大醫院血液科目前招募中的臨床試驗。提供病患與家屬參考：包含試驗中文名稱、試驗藥品、合適參加的病人條件，以及諮詢方式。涵蓋白血病、淋巴瘤、多發性骨髓瘤、骨髓增生疾病等。",
-    alternates: {
-        canonical: "/patients",
-    },
+        "成大醫院血液科目前招募中的臨床試驗。提供病患與家屬參考：依疾病分類查詢，含試驗中文名稱、試驗藥品、合適參加的病人條件，以及諮詢方式。涵蓋白血病、淋巴瘤、多發性骨髓瘤、骨髓增生疾病、PNH、再生不良性貧血等。",
+    keywords: [
+        "血液病", "血癌", "白血病", "淋巴癌", "淋巴瘤", "骨髓瘤",
+        "臨床試驗", "新藥試驗", "成大醫院", "成大血液科", "病患資訊",
+    ],
+    alternates: { canonical: "/patients" },
     openGraph: {
         title: "病患資訊｜成大醫院血液科臨床試驗",
         description: "成大醫院血液科目前招募中的臨床試驗 — 病患與家屬版資訊",
@@ -26,13 +30,15 @@ const CONSULT_URL = "https://dr.hosp.ncku.edu.tw/p/412-1087-29872.php?Lang=zh-tw
 
 export default async function PatientsPage() {
     const allTrials = await getTrials();
-    // Patient view: only trials actively recruiting new participants
     const trials = allTrials.filter(t => t.status === "Recruiting");
+
+    const recruitingCountFor = (landing: typeof DISEASE_LANDINGS[number]) =>
+        trials.filter(t => landing.categories.includes(t.diseaseCategory)).length;
 
     return (
         <main className="min-h-screen bg-background">
             <div className="border-b bg-card">
-                <div className="container py-6 md:py-8 max-w-4xl mx-auto">
+                <div className="container py-6 md:py-8 max-w-5xl mx-auto">
                     <div className="flex items-start justify-between gap-3 mb-3">
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-primary/10 rounded-lg">
@@ -48,8 +54,9 @@ export default async function PatientsPage() {
                         <AudienceSwitch target="hcp" />
                     </div>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                        本頁列出本院血液科目前 <strong>招募中</strong> 的臨床試驗。
-                        若您或家屬罹患下列疾病、且對某項試驗有興趣，請至
+                        本頁提供成大醫院血液科目前 <strong>招募中</strong> 的臨床試驗。
+                        您可以從下方疾病分類進入，閱讀疾病簡介、治療進展與相關試驗；或往下查看所有招募中試驗。
+                        若有興趣參加，請至
                         <a
                             href={CONSULT_URL}
                             target="_blank"
@@ -58,23 +65,53 @@ export default async function PatientsPage() {
                         >
                             成大醫院血液科醫師門診
                         </a>
-                        諮詢，由醫師評估是否適合參加。或
-                        <Link
-                            href="/diseases"
-                            className="mx-1 text-primary font-medium hover:underline"
-                        >
-                            依疾病分類瀏覽
-                        </Link>
-                        以閱讀疾病簡介與治療進展。
+                        諮詢評估。
                     </p>
+                    <Link
+                        href="/about-trials"
+                        className="inline-flex items-center gap-1.5 mt-3 text-sm text-primary font-medium hover:underline"
+                    >
+                        <BookOpen className="h-4 w-4" />
+                        什麼是臨床試驗？
+                    </Link>
                 </div>
             </div>
 
-            <div className="container py-6 md:py-8 max-w-4xl mx-auto">
+            {/* Disease landing card grid */}
+            <div className="container py-8 max-w-5xl mx-auto">
+                <h2 className="text-xl font-semibold mb-4">依疾病分類瀏覽</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                    {DISEASE_LANDINGS.map(d => {
+                        const count = recruitingCountFor(d);
+                        return (
+                            <Link key={d.slug} href={`/patients/${d.slug}`} className="group">
+                                <Card className="h-full hover:shadow-md hover:border-primary/40 transition-all">
+                                    <CardContent className="p-4 space-y-1">
+                                        <div className="flex items-start justify-between gap-2">
+                                            <h3 className="font-semibold text-sm leading-snug group-hover:text-primary transition-colors">
+                                                {d.nameZh}
+                                            </h3>
+                                            <ArrowRight className="h-4 w-4 mt-0.5 shrink-0 text-muted-foreground group-hover:text-primary transition-colors" />
+                                        </div>
+                                        <p className="text-xs text-muted-foreground">{d.nameEn}</p>
+                                        <p className="text-xs font-medium text-primary pt-1">
+                                            {count > 0 ? `${count} 項招募中` : "衛教資訊"}
+                                        </p>
+                                    </CardContent>
+                                </Card>
+                            </Link>
+                        );
+                    })}
+                </div>
+            </div>
+
+            {/* Full trial list with client-side filter */}
+            <div className="container pb-8 max-w-4xl mx-auto">
+                <h2 className="text-xl font-semibold mb-4">所有招募中試驗 ({trials.length} 項)</h2>
                 <PatientTrialsClient trials={trials} />
             </div>
 
-            <div className="border-t bg-muted/30 mt-12">
+            <div className="border-t bg-muted/30 mt-8">
                 <div className="container py-6 max-w-4xl mx-auto space-y-4">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                         <div className="p-2 bg-primary/10 rounded-lg">

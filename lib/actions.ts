@@ -116,8 +116,7 @@ export async function createTrial(formData: FormData) {
 
     revalidatePath('/')
     revalidatePath('/admin')
-    revalidatePath('/patients')
-    revalidatePath('/diseases', 'layout')
+    revalidatePath('/patients', 'layout')
     redirect('/admin')
 }
 
@@ -169,10 +168,10 @@ export async function updateTrial(id: string, formData: FormData) {
 
     revalidatePath('/')
     revalidatePath('/admin')
-    revalidatePath('/patients')
-    revalidatePath('/diseases', 'layout')
+    // layout-level invalidation covers /patients itself, all disease landings under
+    // /patients/[slug], and the trial detail view under /patients/[slug].
+    revalidatePath('/patients', 'layout')
     revalidatePath(`/trials/${id}`)
-    revalidatePath(`/patients/${id}`)
     redirect('/admin')
 }
 

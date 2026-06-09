@@ -16,7 +16,7 @@ export function AudienceGate() {
 
         // Visitors who land directly on a patient-facing page came for the patient
         // view — silently set the cookie, no modal interruption.
-        if (pathname?.startsWith("/patients") || pathname?.startsWith("/diseases")) {
+        if (pathname?.startsWith("/patients") || pathname?.startsWith("/about-trials")) {
             writeAudience("public");
             return;
         }

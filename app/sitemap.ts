@@ -43,13 +43,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.9,
         },
         {
-            url: `${baseUrl}/diseases`,
+            url: `${baseUrl}/about-trials`,
             lastModified: new Date(),
-            changeFrequency: 'weekly',
-            priority: 0.9,
+            changeFrequency: 'monthly',
+            priority: 0.7,
         },
         ...DISEASE_LANDINGS.map(d => ({
-            url: `${baseUrl}/diseases/${d.slug}`,
+            url: `${baseUrl}/patients/${d.slug}`,
             lastModified: new Date(),
             changeFrequency: 'weekly' as 'weekly',
             priority: 0.85,
