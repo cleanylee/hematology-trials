@@ -5,7 +5,7 @@ import { Trial, DiseaseCategory } from "@/lib/data";
 import { PatientTrialCard } from "./PatientTrialCard";
 
 const categoryOrder: Array<DiseaseCategory | "All"> = [
-    "All", "AML-MDS", "ALL", "CLL", "CML", "MM", "Lymphoma", "MPN", "PNH", "GVHD", "Others",
+    "All", "AML-MDS", "ALL", "CLL", "CML", "MM", "Lymphoma", "MPN", "PNH", "AA", "GVHD", "HSCT", "Others",
 ];
 
 const categoryLabelZh: Record<string, string> = {
@@ -18,7 +18,9 @@ const categoryLabelZh: Record<string, string> = {
     "Lymphoma": "淋巴瘤",
     "MPN": "骨髓增生性腫瘤",
     "PNH": "PNH",
+    "AA": "再生不良性貧血",
     "GVHD": "GVHD",
+    "HSCT": "造血幹細胞移植",
     "Others": "其他",
 };
 

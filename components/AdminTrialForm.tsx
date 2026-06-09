@@ -62,7 +62,9 @@ export function AdminTrialForm({ initialData, isEditing = false }: AdminTrialFor
         "Lymphoma",
         "MPN",
         "PNH",
+        "AA",
         "GVHD",
+        "HSCT",
         "Others"
     ];
     const statuses: TrialStatus[] = [

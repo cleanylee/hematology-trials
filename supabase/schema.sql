@@ -14,6 +14,8 @@ create type public.disease_category as enum (
   'PNH',
   'MPN',
   'GVHD',
+  'HSCT',
+  'AA',
   'Others'
 );
 

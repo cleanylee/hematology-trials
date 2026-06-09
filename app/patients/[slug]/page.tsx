@@ -23,7 +23,9 @@ const diseaseLabelZh: Record<string, string> = {
     "Lymphoma": "淋巴瘤",
     "MPN": "骨髓增生性腫瘤",
     "PNH": "陣發性夜間血紅素尿症",
-    "GVHD": "移植物對抗宿主病 / 造血幹細胞移植",
+    "AA": "再生不良性貧血",
+    "GVHD": "移植物對抗宿主病",
+    "HSCT": "造血幹細胞移植",
     "Others": "其他",
 };
 

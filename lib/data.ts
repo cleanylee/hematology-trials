@@ -8,6 +8,8 @@ export type DiseaseCategory =
     | "MPN"
     | "PNH"
     | "GVHD"
+    | "HSCT"
+    | "AA"
     | "Others";
 
 export type TrialStatus =
@@ -60,6 +62,8 @@ export const getCategoryColor = (category: DiseaseCategory): string => {
         case "MPN": return "bg-fuchsia-50 text-fuchsia-700 border-fuchsia-200";
         case "PNH": return "bg-lime-50 text-lime-700 border-lime-200";
         case "GVHD": return "bg-slate-50 text-slate-700 border-slate-200";
+        case "HSCT": return "bg-teal-50 text-teal-700 border-teal-200";
+        case "AA": return "bg-orange-50 text-orange-700 border-orange-200";
         default: return "bg-gray-50 text-gray-700 border-gray-200";
     }
 };

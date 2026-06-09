@@ -24,7 +24,7 @@ export default function AdminDashboardClient({ trials }: { trials: Trial[] }) {
         });
     }, [trials, searchQuery, selectedCategory, selectedStatus]);
 
-    const categories: DiseaseCategory[] = ["AML-MDS", "ALL", "CLL", "CML", "MM", "Lymphoma", "MPN", "PNH", "GVHD", "Others"];
+    const categories: DiseaseCategory[] = ["AML-MDS", "ALL", "CLL", "CML", "MM", "Lymphoma", "MPN", "PNH", "AA", "GVHD", "HSCT", "Others"];
     const statuses: TrialStatus[] = [
         "Pending Approval",
         "Recruiting",
