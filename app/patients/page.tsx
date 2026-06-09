@@ -38,7 +38,7 @@ export default async function PatientsPage() {
     return (
         <main className="min-h-screen bg-background">
             <div className="border-b bg-card">
-                <div className="container py-6 md:py-8 max-w-5xl mx-auto">
+                <div className="container py-6 md:py-8 max-w-7xl mx-auto">
                     <div className="flex items-start justify-between gap-3 mb-3">
                         <div className="flex items-center gap-3">
                             <div className="p-2 bg-primary/10 rounded-lg">
@@ -81,7 +81,7 @@ export default async function PatientsPage() {
             </div>
 
             {/* Disease landing card grid */}
-            <div className="container py-8 max-w-5xl mx-auto">
+            <div className="container py-8 max-w-7xl mx-auto">
                 <h2 className="text-xl font-semibold mb-4">依疾病分類瀏覽</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                     {DISEASE_LANDINGS.map(d => {
@@ -109,13 +109,13 @@ export default async function PatientsPage() {
             </div>
 
             {/* Full trial list with client-side filter */}
-            <div className="container pb-8 max-w-4xl mx-auto">
+            <div className="container pb-8 max-w-7xl mx-auto">
                 <h2 className="text-xl font-semibold mb-4">所有招募中試驗 ({trials.length} 項)</h2>
                 <PatientTrialsClient trials={trials} />
             </div>
 
             <div className="border-t bg-muted/30 mt-8">
-                <div className="container py-6 max-w-4xl mx-auto space-y-4">
+                <div className="container py-6 max-w-7xl mx-auto space-y-4">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                         <div className="p-2 bg-primary/10 rounded-lg">
                             <Phone className="h-5 w-5 text-primary" />
@@ -135,9 +135,6 @@ export default async function PatientsPage() {
                             門診時間查詢
                         </a>
                     </div>
-                    <p className="text-xs text-muted-foreground border-t pt-3">
-                        ⚠️ 部份翻譯資訊由 AI 提供，所有臨床試驗資訊以最新版試驗計畫書為準。
-                    </p>
                 </div>
             </div>
         </main>

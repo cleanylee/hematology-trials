@@ -148,7 +148,7 @@ function DiseaseLandingView({
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(medicalConditionLd) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
             <main className="min-h-screen bg-background">
-                <div className="container py-8 max-w-4xl mx-auto space-y-8">
+                <div className="container py-8 max-w-7xl mx-auto space-y-8">
                     <div className="flex items-center justify-between">
                         <Link
                             href="/patients"
@@ -244,9 +244,6 @@ function DiseaseLandingView({
                         </CardContent>
                     </Card>
 
-                    <p className="text-xs text-muted-foreground text-center pt-2 border-t">
-                        ⚠️ 部份翻譯資訊由 AI 提供，所有臨床試驗資訊以最新版試驗計畫書為準。
-                    </p>
                 </div>
             </main>
         </>
@@ -266,7 +263,7 @@ function TrialDetailView({ trial, slug }: { trial: Trial; slug: string }) {
 
     return (
         <main className="min-h-screen bg-background">
-            <div className="container py-8 max-w-3xl mx-auto space-y-6">
+            <div className="container py-8 max-w-7xl mx-auto space-y-6">
                 <div className="flex items-center justify-between">
                     <Link
                         href="/patients"
@@ -393,9 +390,6 @@ function TrialDetailView({ trial, slug }: { trial: Trial; slug: string }) {
                     </CardContent>
                 </Card>
 
-                <p className="text-xs text-muted-foreground text-center pt-4 border-t">
-                    ⚠️ 部份翻譯資訊由 AI 提供，所有臨床試驗資訊以最新版試驗計畫書為準。
-                </p>
             </div>
         </main>
     );

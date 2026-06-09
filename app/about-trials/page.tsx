@@ -86,7 +86,7 @@ export default function AboutTrialsPage() {
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
             <main className="min-h-screen bg-background">
-                <div className="container py-8 max-w-3xl mx-auto space-y-10">
+                <div className="container py-8 max-w-7xl mx-auto space-y-10">
                     <div className="flex items-center justify-between">
                         <Link
                             href="/patients"

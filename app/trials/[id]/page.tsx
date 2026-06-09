@@ -172,7 +172,7 @@ export default async function TrialPage({
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
             />
-            <div className="container py-8 space-y-6 max-w-4xl mx-auto">
+            <div className="container py-8 space-y-6 max-w-7xl mx-auto">
                 <div className="flex items-center justify-between">
                     <Link
                         href="/"
