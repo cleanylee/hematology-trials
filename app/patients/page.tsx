@@ -58,7 +58,14 @@ export default async function PatientsPage() {
                         >
                             成大醫院血液科醫師門診
                         </a>
-                        諮詢，由醫師評估是否適合參加。
+                        諮詢，由醫師評估是否適合參加。或
+                        <Link
+                            href="/diseases"
+                            className="mx-1 text-primary font-medium hover:underline"
+                        >
+                            依疾病分類瀏覽
+                        </Link>
+                        以閱讀疾病簡介與治療進展。
                     </p>
                 </div>
             </div>

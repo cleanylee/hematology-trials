@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { getTrials } from '@/lib/actions'
+import { DISEASE_LANDINGS } from '@/lib/diseases'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://trials.hematology.tw'
@@ -41,6 +42,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: 'daily',
             priority: 0.9,
         },
+        {
+            url: `${baseUrl}/diseases`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
+        ...DISEASE_LANDINGS.map(d => ({
+            url: `${baseUrl}/diseases/${d.slug}`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly' as 'weekly',
+            priority: 0.85,
+        })),
         ...trialUrls,
         ...patientTrialUrls,
     ]

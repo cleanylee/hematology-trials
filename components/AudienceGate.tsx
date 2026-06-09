@@ -14,9 +14,9 @@ export function AudienceGate() {
         const existing = readAudience();
         if (existing) return;
 
-        // Visitors who land directly on a patient page came for the patient view —
-        // silently set the cookie, no modal interruption.
-        if (pathname?.startsWith("/patients")) {
+        // Visitors who land directly on a patient-facing page came for the patient
+        // view — silently set the cookie, no modal interruption.
+        if (pathname?.startsWith("/patients") || pathname?.startsWith("/diseases")) {
             writeAudience("public");
             return;
         }
