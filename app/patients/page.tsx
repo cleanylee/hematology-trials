@@ -53,8 +53,11 @@ export default async function PatientsPage() {
                         </div>
                         <AudienceSwitch target="hcp" />
                     </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                        本頁提供成大醫院血液科目前 <strong>招募中</strong> 的臨床試驗。
+                    <p className="text-sm leading-relaxed">
+                        <strong>成大醫院血液科</strong>長期深耕血液疾病的診斷與治療，並具備豐富的多中心臨床試驗執行經驗，是台灣重要的血液疾病臨床試驗中心之一。
+                    </p>
+                    <p className="text-sm text-muted-foreground leading-relaxed mt-2">
+                        本頁提供本科目前 <strong>招募中</strong> 的臨床試驗。
                         您可以從下方疾病分類進入，閱讀疾病簡介、治療進展與相關試驗；或往下查看所有招募中試驗。
                         若有興趣參加，請至
                         <a
